@@ -1,4 +1,9 @@
 Dame09plus::Application.routes.draw do
+  namespace :admin do
+    resources :entries
+  end
+
+
   authenticated :user do
     root :to => 'home#index'
   end

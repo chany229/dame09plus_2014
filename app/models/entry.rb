@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Entry
   include Mongoid::Document
   include Mongoid::Timestamps

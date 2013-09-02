@@ -1,3 +1,4 @@
+# encoding: utf-8
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -48,7 +49,7 @@ class User
   validates_presence_of :username
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 
-  def created_at
-    read_attribute(:created_at)+8.hours
-  end
+  #def created_at
+  #  read_attribute(:created_at) + 8.hours
+  #end
 end
