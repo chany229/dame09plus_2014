@@ -2,10 +2,10 @@
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div>
-  <%= f.email_field :email, :placeholder => "请输入#{t "email"}" %>
+  <%= f.email_field :email, :placeholder => "#{t "please_input"}#{t "email"}" %>
   </div>
   <div>
-  <%= f.password_field :password, :placeholder => "请输入#{t "password"}" %>
+  <%= f.password_field :password, :placeholder => "#{t "please_input"}#{t "password"}" %>
   </div>
 
   <% if devise_mapping.rememberable? -%>

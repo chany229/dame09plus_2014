@@ -1,13 +1,18 @@
 zh:
   back: 返回
+  change_password: 修改密码
   destroy: 删除
   edit: 编辑
-  email: email
+  email: 电邮
   entry: 条目
   forgot_password: 忘记密码？
+  forgot_password_title: 找回密码
   new: 新建
   password: 密码
+  please_input: 请输入
+  please_input_again: 请再次输入
   remember_me: 保持登录状态
+  reset_password: 重置密码
   show: 查看
   sign_in: 登录
   sign_up: 注册
