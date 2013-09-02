@@ -1,0 +1,18 @@
+<h2><%= t "sign_in" %></h2>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <div>
+  <%= f.email_field :email, :placeholder => "请输入#{t "email"}" %>
+  </div>
+  <div>
+  <%= f.password_field :password, :placeholder => "请输入#{t "password"}" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="remember"><%= f.check_box :remember_me %> <%= t "remember_me" %></div>
+  <% end -%>
+
+  <div><%= f.submit t("sign_in"), :class=>'btn' %></div>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>

@@ -1,0 +1,17 @@
+<h2><%= t "sign_up" %></h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.email_field :email, :placeholder => "请输入#{t "email"}" %></div>
+
+  <div><%= f.text_field :username, :placeholder => "请输入#{t "username"}" %></div>
+
+  <div><%= f.password_field :password, :placeholder => "请输入#{t "password"}" %></div>
+
+  <div><%= f.password_field :password_confirmation, :placeholder => "请再次输入#{t "password"}" %></div>
+
+  <div><%= f.submit t("sign_up"), :class => 'btn' %></div>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>

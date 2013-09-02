@@ -1,0 +1,35 @@
+zh:
+  will_paginate:
+    models:
+      entry:  资源
+    previous_label: "上一页"
+    next_label: "下一页"
+    page_gap: "... ..."
+
+    page_entries_info:
+      single_page:
+        zero:  "没有发现 %{model} "
+        one:   "显示 1 %{model}"
+        other: "显示所有 %{count} %{model}"
+      single_page_html:
+        zero:  "没有发现 %{model} "
+        one:   "显示 <b>1</b> %{model}"
+        other: "显示 <b>所有&nbsp;%{count}</b> %{model}"
+
+      multi_page: "显示 %{model} %{from} - %{to} 共 %{count} 所有记录"
+      multi_page_html: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> 共 <b>%{count}</b> 所有记录"
+
+    # models:
+    #   entry:
+    #     zero:  entries
+    #     one:   entry
+    #     few:   entries
+    #     other: entries
+
+    # line_item:
+    #   page_entries_info:
+    #     single_page:
+    #       zero:  "Your shopping cart is empty"
+    #       one:   "Displaying one item in your cart"
+    #       other: "Displaying all %{count} items"
+    #     multi_page: "Displaying items %{from} - %{to} of %{count} in total"

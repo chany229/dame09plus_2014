@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>马太目欢乐颂+</title>
+  <%= stylesheet_link_tag    "yamato_raven", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield :head %>
+</head>
+<body>
+  <% if notice %><p class="notice"><%= notice %></p><% end %>
+  <% if alert %><p class="alert"><%= alert %></p><% end %>
+  <header>
+    <div id="login_link">
+      <% if current_user %>
+        <%= current_user.name %>
+        <%# if current_user.has_role?("admin") %>
+          <%#= link_to '管理界面', admin_path %>
+        <%# end %>
+        <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
+      <% else %>
+        <%= link_to '登录', new_session_path(:user) %>
+        <%= link_to '注册', new_registration_path(:user) %>
+      <% end %>
+      
+      <%# if remote? %>
+        <%#= link_to "切换为传统版", change_format_path %>
+      <%# else %>
+        <%#= link_to "切换为AJAX版", change_format_path %>
+      <%# end %>
+    </div>
+  </header>
+  <div id="container">
+    <div id="side">
+      <%#= yield :side %>
+      <%= render "home/side" %>
+    </div>
+    <div id="content">
+      <%= yield %>
+    </div>
+  </div>
+  <footer>22222</footer>
+</body>
+</html>
