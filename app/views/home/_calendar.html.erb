@@ -1,0 +1,57 @@
+<table style="width: 200px;text-align: center;">
+  <tr>
+    <td>
+      <%= link_to '<<', calendar_path(datetime.prev_month.to_i), :remote => true %>
+    </td>
+    <td>
+      <%= link_to_unless Entry.where(["created_at > ? and created_at < ?",
+          Time.new(datetime.year,1,1).beginning_of_year,
+          Time.new(datetime.year,1,1).end_of_year]).empty?, "#{datetime.year}年",
+          year_path(datetime.year), :remote => remote? %>
+      <%= link_to_unless Entry.where(["created_at > ? and created_at < ?",
+          Time.new(datetime.year,datetime.month,1).beginning_of_month,
+          Time.new(datetime.year,datetime.month,1).end_of_month]).empty?, "#{datetime.month}月",
+          month_path(datetime.year,datetime.month), :remote => remote? %>
+    </td>
+    <td>
+      <%= link_to '>>', calendar_path(datetime.next_month.to_i), :remote => true %>
+    </td>
+  </tr>
+</table>
+<hr/>
+<table style="width: 200px;text-align: center;">
+  <tr>
+    <th>日</th>
+    <th>一</th>
+    <th>二</th>
+    <th>三</th>
+    <th>四</th>
+    <th>五</th>
+    <th>六</th>
+  </tr>
+  <tr>
+    <% for i in 0..6 %>
+      <% if i == datetime.beginning_of_month.wday %>
+        <% break %>
+      <% end %> <td></td>
+    <% end %>
+    <% for date in 1..Time.days_in_month(datetime.month,datetime.year) %>
+      <% if Time.new(datetime.year,datetime.month,date).wday == 0 %>
+        <td>
+      <% elsif Time.new(datetime.year,datetime.month,date).wday == 6 %>
+        <td>
+      <% else %>
+        <td>
+      <% end %>
+      <%= link_to_unless Entry.where(["created_at > ? and created_at < ?",
+          Time.new(datetime.year,datetime.month,date).beginning_of_day,
+          Time.new(datetime.year,datetime.month,date).end_of_day]).empty?,
+          date, day_path(datetime.year,datetime.month,date), :remote => remote? %>
+      </td>
+      <% if Time.new(datetime.year,datetime.month,date).wday == 6%>
+        </tr>
+        <tr>
+      <% end %>
+    <% end %>
+  </tr>
+</table>

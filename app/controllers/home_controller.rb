@@ -4,7 +4,6 @@ class HomeController < ApplicationController
 	layout false
 
 	def index
-		#@users = User.all
 	end
 
 	def frame
@@ -12,5 +11,9 @@ class HomeController < ApplicationController
 	end
 
 	def top
+	end
+
+	def logs
+		@entries = Entry.desc(:created_at)
 	end
 end

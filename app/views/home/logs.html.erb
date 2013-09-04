@@ -1,0 +1,25 @@
+<div class="block" id="notice">
+notice<%#= AppConfig.notice %>
+</div>
+<div id="entries">
+	<%= render "entries" %>
+</div>
+<div id="filters">
+	<div id="calendar" class="block">
+		<%#= render "calendar", :datetime => @date %>
+	</div>
+	<div id="keyword" class="block">
+		<%#= form_tag '/keyword', :method => 'get', :remote => remote? do %>
+			<%#= text_field_tag 'keyword', params[:keyword] || '', :id => "" %>
+			<input type="submit" value="搜索" class="btn" />
+		<%# end %>
+	</div>
+	<div id="tags" class="block">
+		<%# tag_cloud(@tags.order("count desc"), []) do |tag, css| %>
+		<span style="font-size: <%#= tag.count/10.0 + 0.7 %>em;">
+				<%#= link_to tag.name, tag_path(tag.name), :remote => remote? %>(<%#= tag.count %>)
+			</span>
+		<%# end %>
+	</div>
+</div>
+<div class="clear"></div>
