@@ -3,8 +3,7 @@ config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 	when('/top', {templateUrl: '/top'}).
 	when('/logs', {templateUrl: '/logs'}).
-//when('/phones/:phoneId', {templateUrl: 'partials/phone-detail.html', controller: PhoneDetailCtrl}).
-otherwise({redirectTo: '/top'});
+	otherwise({redirectTo: '/top'});
 }]);
 function SideCtrl($scope, $location) {
 	$scope.sideLiClass = function(path) {

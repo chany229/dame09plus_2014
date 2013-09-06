@@ -1,44 +1,34 @@
 <div class="entry block" id="entry_<%= entry.id %>">
 	<%= entry.short %>
+
+	<% if entry.has_long? %>
+	<hr/>
+	<div id="long_of_e<%= entry.id %>" class="article">
+		<%= simple_format entry.long %>
+	</div>
+	<% end %>
 	<div class="entry_links">
 		<% if entry.has_long? %>
-			<div class="left">
-				<%= link_to "显示全文", "javascript:void(0);", :onclick => "$('#long_of_e#{entry.id}').toggle();" %>
-			</div>
+		<div class="left">
+			<%= link_to "显示全文", "javascript:void(0);", :id => "show_long_btn_of_e#{entry.id}", :onclick => "$('#long_of_e#{entry.id}').slideDown();$('#show_long_btn_of_e#{entry.id}').hide();$('#hide_long_btn_of_e#{entry.id}').show()" %>
+			<%= link_to "隐藏全文", "javascript:void(0);", :id => "hide_long_btn_of_e#{entry.id}", :onclick => "$('#long_of_e#{entry.id}').slideUp();$('#show_long_btn_of_e#{entry.id}').show();$('#hide_long_btn_of_e#{entry.id}').hide()", :style => "display:none;" %>
+		</div>
 		<% end %>
 		<div class="right">
-			<%# entry.tags.each do |tag| %>
-				<%#= link_to tag.name, tag_path(tag.name), :remote => remote? %> 
-			<%# end %> |
+			<% entry.tags.each do |tag| %>
+			<%= link_to tag, tag_path(tag), :remote => remote? %> 
+			<% end %> |
 			<%= entry.created_at.to_s %> |
 			<%#= link_to "comments(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').toggle();" %>
 		</div>
 		<div class="clear"></div>
 	</div>
-	<% if entry.has_long? %>
-		<div id="long_of_e<%= entry.id %>" class="article">
-			<%= simple_format entry.long %>
-			<div class="entry_links">
-				<div class="left">
-					<%= link_to "隐藏全文", "javascript:void(0);", :onclick => "$('#long_of_e#{entry.id}').toggle();" %>
-				</div>
-				<div class="right">
-					<%# entry.tags.each do |tag| %>
-						<%#= link_to tag.name, tag_path(tag.name), :remote => remote? %> 
-					<%# end %> |
-					<%= entry.created_at.to_s %> |
-					<%#= link_to "comments(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').toggle();" %>
-				</div>
-				<div class="clear"></div>
-			</div>
-		</div>
-	<% end %>
 	<div id="comments_of_e<%= entry.id %>" class="comments">
 		<%#= render "public/comment_form", :entry => entry %>
 		<%# entry.comments.each do |comment| %>
-			<%#= comment.username %>：
-			<%#= comment.comment %>
-			<br/>
+		<%#= comment.username %>：
+		<%#= comment.comment %>
+		<br/>
 		<%# end %>
 	</div>
 </div>

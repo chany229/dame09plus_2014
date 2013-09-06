@@ -4,14 +4,15 @@ $purple: #460e44;
 $grey: #3f312b;
 $green: #6e7955;
 $block_radius: 5px;
+$hover_transition: color .50s linear, background-color .50s linear, border-color .50s linear;
 * {
   margin: 0;
   padding: 0;
   &:hover {
-    -o-transition: color .50s linear, background-color .50s linear, border-color .50s linear;
-    -webkit-transition: color .50s linear, background-color .50s linear, border-color .50s linear;
-    -moz-transition: color .50s linear, background-color .50s linear, border-color .50s linear;
-    transition: color .50s linear, background-color .50s linear, border-color .50s linear;
+    -o-transition: $hover_transition;
+    -webkit-transition: $hover_transition;
+    -moz-transition: $hover_transition;
+    transition: $hover_transition;
   }
 }
 html {
@@ -183,8 +184,8 @@ p.notice, p.alert {
   background: linear-gradient(left, #000, rgba(0,0,0,0)); 
 }
 #face {
-	margin: 0 19px 19px;
-	border: 1px solid $yellow;
+	margin: 0 20px 20px;
+	border: 0px solid $yellow;
 }
 #music_player {
   margin: 40px 20px 20px;
@@ -259,7 +260,7 @@ p.notice, p.alert {
   float: left;
   margin-right:12px;
 }
-#pagination {
+.pagination {
   float: right;
 }
 /*content*/
@@ -311,3 +312,6 @@ p.notice, p.alert {
 }*/
 .margintb {margin: 5px 0;}
 /*classes*/
+.left {float: left;}
+.right {float: right;}
+.clear {clear: both;}

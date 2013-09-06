@@ -3,9 +3,9 @@
 		<%= render "entry", :entry => entry %>
 	<% end %>
 	<div id="logs_info">
-		<div id="filter_info">过滤条件:<%#= @filter %></div>
-		<div id="total_info">共有<%#= @entries.total_entries %>条日志</div>
-		<%#= will_paginate @entries, :renderer => (remote? ? RemotePaginateLinkRenderer : PaginateLinkRenderer) %>
+		<div id="filter_info">过滤条件:<%= @filter %></div>
+		<div id="total_info">共有<%= @entries.total_count %>条日志</div>
+		<%= paginate @entries, :remote => remote? %>
 		<div class="clear"></div>
 	</div>
 <% else %>

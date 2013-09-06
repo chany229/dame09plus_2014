@@ -1,20 +1,14 @@
 <table style="width: 200px;text-align: center;">
   <tr>
     <td>
-      <%= link_to '<<', calendar_path(datetime.prev_month.to_i), :remote => true %>
+      <%= link_to '<<', calendar_path(date.prev_month.to_i), :remote => true %>
     </td>
     <td>
-      <%= link_to_unless Entry.where(["created_at > ? and created_at < ?",
-          Time.new(datetime.year,1,1).beginning_of_year,
-          Time.new(datetime.year,1,1).end_of_year]).empty?, "#{datetime.year}年",
-          year_path(datetime.year), :remote => remote? %>
-      <%= link_to_unless Entry.where(["created_at > ? and created_at < ?",
-          Time.new(datetime.year,datetime.month,1).beginning_of_month,
-          Time.new(datetime.year,datetime.month,1).end_of_month]).empty?, "#{datetime.month}月",
-          month_path(datetime.year,datetime.month), :remote => remote? %>
+      <%= link_to "#{date.year}年", year_path(date.year), :remote => remote? %>
+      <%= link_to "#{date.month}月", month_path(date.year,date.month), :remote => remote? %>
     </td>
     <td>
-      <%= link_to '>>', calendar_path(datetime.next_month.to_i), :remote => true %>
+      <%= link_to '>>', calendar_path(date.next_month.to_i), :remote => true %>
     </td>
   </tr>
 </table>
@@ -31,24 +25,22 @@
   </tr>
   <tr>
     <% for i in 0..6 %>
-      <% if i == datetime.beginning_of_month.wday %>
+      <% if i == date.beginning_of_month.wday %>
         <% break %>
       <% end %> <td></td>
     <% end %>
-    <% for date in 1..Time.days_in_month(datetime.month,datetime.year) %>
-      <% if Time.new(datetime.year,datetime.month,date).wday == 0 %>
+    <% for day in 1..Time.days_in_month(date.month,date.year) %>
+      <% if Time.new(date.year,date.month,day).wday == 0 %>
         <td>
-      <% elsif Time.new(datetime.year,datetime.month,date).wday == 6 %>
+      <% elsif Time.new(date.year,date.month,day).wday == 6 %>
         <td>
       <% else %>
         <td>
       <% end %>
-      <%= link_to_unless Entry.where(["created_at > ? and created_at < ?",
-          Time.new(datetime.year,datetime.month,date).beginning_of_day,
-          Time.new(datetime.year,datetime.month,date).end_of_day]).empty?,
-          date, day_path(datetime.year,datetime.month,date), :remote => remote? %>
+      <%= link_to_if events.include?(day),
+          day, day_path(date.year,date.month,day), :remote => remote? %>
       </td>
-      <% if Time.new(datetime.year,datetime.month,date).wday == 6%>
+      <% if Time.new(date.year,date.month,day).wday == 6%>
         </tr>
         <tr>
       <% end %>
