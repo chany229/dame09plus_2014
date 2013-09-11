@@ -16,7 +16,11 @@
 		<% end %>
 		<div class="right">
 			<% entry.tags.each do |tag| %>
-			<%= link_to tag, tag_path(tag), :remote => remote? %> 
+			<% if remote? %>
+			<%= link_to tag, tag_path(tag), :remote => true %>
+			<% else %>
+			<%= link_to tag, "#/logs/tag/#{tag}" %>
+			<% end %>
 			<% end %> |
 			<%= entry.created_at.to_s %> |
 			<%#= link_to "comments(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').toggle();" %>

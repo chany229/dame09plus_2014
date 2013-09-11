@@ -65,9 +65,9 @@
 					特此声明
 				</div>
 				<div class="links">
-					<%#= link_to "AJAX版入口", top_path(:type => :js) %><span>（推荐，请确保开启javascript）</span>
+					<%= link_to "Jquery版入口", frame_path(:type => :jquery) %>
 					<br/>
-					<%#= link_to "传统版入口", top_path(:type => :html) %>
+					<%= link_to "Angular版入口", frame_path(:type => :angular) %>
 				</div>
 				<div class="links">
 					<% if current_user %>

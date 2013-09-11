@@ -17,7 +17,11 @@
 	<div id="tags" class="block">
 		<% @tags.each do |tag| %>
 		<span style="font-size: <%= tag[:count]/10.0 + 0.7 %>em;">
+			<% if remote? %>
 			<%= link_to tag[:name], tag_path(tag[:name]), :remote => true %>(<%= tag[:count] %>)
+			<% else %>
+			<%= link_to tag[:name], "#/logs/tag/#{tag[:name]}" %>(<%= tag[:count] %>)
+			<% end %>
 		</span>
 		<% end %>
 	</div>

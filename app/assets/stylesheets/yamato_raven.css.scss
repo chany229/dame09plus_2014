@@ -100,6 +100,7 @@ header {
 }
 footer {
 	text-align:center;
+  padding-top: 12px;
 }
 
 ::-webkit-input-placeholder { color: $green; }
@@ -315,3 +316,15 @@ p.notice, p.alert {
 .left {float: left;}
 .right {float: right;}
 .clear {clear: both;}
+.loading {
+    overflow: hidden;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: white url('/assets/loading.gif') 50% 50% no-repeat;
+    filter: alpha(opacity=80);
+    opacity: 0.7;
+}

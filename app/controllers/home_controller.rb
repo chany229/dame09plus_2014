@@ -1,12 +1,17 @@
 # encoding: utf-8
 class HomeController < ApplicationController
 	before_filter :authenticate_user!, :except => [:index]
-	layout false
+	layout :get_layout
 
 	def index
 	end
 
 	def frame
+		if params[:type]
+			session[:type] = cookies[:type] = params[:type]
+		elsif cookies[:type]
+			session[:type] = cookies[:type]
+		end
 		render :layout => "yamato_raven"
 	end
 
@@ -55,6 +60,34 @@ class HomeController < ApplicationController
 		end
 	end
 
+	def tags
+		tags = params[:tags].split('|')
+		type = params[:type]
+		if type.downcase == 'and'
+			@entries = Entry.tagged_with_all(tags).desc(:created_at).page(params[:page] || 1).per(5)
+			@filter  = "标签与搜索[#{params[:tags]}]"
+		else#if type.downcase == 'or'
+			@entries = Entry.tagged_with(tags).desc(:created_at).page(params[:page] || 1).per(5)
+			@filter  = "标签或搜索[#{params[:tags]}]"
+		end
+		respond_to do |format|
+			format.html {
+				@calendar_date = Time.now
+				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+				@tags = Entry.all_tags
+				render :action => :logs
+			}
+			format.js {
+				if @should_load_log = params[:should_load_log] || false
+					@calendar_date = Time.now
+					@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+					@tags = Entry.all_tags
+				end
+				render 'search.js.erb'
+			}
+		end
+	end		
+
 	def keyword
 		keyword  = params[:keyword]
 		@entries = Entry.where(["body like ?", "%#{keyword}%"]).order("created_at desc").paginate(:page => @page, :per_page => per_page)
@@ -81,16 +114,19 @@ class HomeController < ApplicationController
 		@month   = params[:month] || now.month
 		@day     = params[:day]   || now.day
 		if params[:day]
-			start_time = Time.new(@year,@month,@day).beginning_of_day
-			end_time = Time.new(@year,@month,@day).end_of_day
+			time = Time.new(@year, @month, @day)
+			start_time = time.beginning_of_day
+			end_time = time.end_of_day
 			@filter = "#{@year}年#{@month}月#{@day}日"
 		elsif params[:month]
-			start_time = Time.new(@year,@month,1).beginning_of_month
-			end_time = Time.new(@year,@month,1).end_of_month
+			time = Time.new(@year, @month, 1)
+			start_time = time.beginning_of_month
+			end_time = time.end_of_month
 			@filter = "#{@year}年#{@month}月"
 		elsif params[:year]
-			start_time = Time.new(@year,1,1).beginning_of_year
-			end_time = Time.new(@year,1,1).end_of_year
+			time = Time.new(@year, 1, 1)
+			start_time = time.beginning_of_year
+			end_time = time.end_of_year
 			@filter = "#{@year}年"
 		else
 			redirect_to '#/logs'
@@ -119,6 +155,16 @@ class HomeController < ApplicationController
 		@events = Entry.where(:created_at => @date.beginning_of_month..@date.end_of_month).map{ |e| e.created_at.day }.uniq
 		respond_to do |format|
 			format.js
+		end
+	end
+
+	private
+
+	def get_layout
+		if params[:from_angular]
+			return false
+		else
+			return "yamato_raven"
 		end
 	end
 end
