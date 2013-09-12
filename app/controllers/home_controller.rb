@@ -1,9 +1,11 @@
 # encoding: utf-8
 class HomeController < ApplicationController
 	before_filter :authenticate_user!, :except => [:index]
+	before_filter :check_from_angular, :except => [:index, :frame, :calendar]
 	layout :get_layout
 
 	def index
+		render :layout => false
 	end
 
 	def frame
@@ -165,6 +167,12 @@ class HomeController < ApplicationController
 			return false
 		else
 			return "yamato_raven"
+		end
+	end
+
+	def check_from_angular
+		unless params[:from_angular]
+			session[:type] = "jquery"
 		end
 	end
 end
