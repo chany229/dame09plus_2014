@@ -42,5 +42,5 @@ group :test do
 end
 
 gem 'angularjs-rails'
-gem "mongoid-simple-tags"
+gem 'mongoid-simple-tags'
 gem 'kaminari'
