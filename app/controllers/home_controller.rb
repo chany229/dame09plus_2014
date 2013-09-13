@@ -1,6 +1,6 @@
 # encoding: utf-8
 class HomeController < ApplicationController
-	before_filter :authenticate_user!, :except => [:index]
+	#before_filter :authenticate_user!, :except => [:index]
 	before_filter :check_from_angular, :except => [:index, :frame, :calendar]
 	layout :get_layout
 
@@ -13,6 +13,8 @@ class HomeController < ApplicationController
 			session[:type] = cookies[:type] = params[:type]
 		elsif cookies[:type]
 			session[:type] = cookies[:type]
+		else
+			session[:type] = cookies[:type] = "angular"
 		end
 		render :layout => "yamato_raven"
 	end
@@ -155,6 +157,20 @@ class HomeController < ApplicationController
 	def calendar
 		@date = Time.at(params[:date].to_i)
 		@events = Entry.where(:created_at => @date.beginning_of_month..@date.end_of_month).map{ |e| e.created_at.day }.uniq
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	def create_comment
+		@entry = Entry.where(:id => params[:entry_id]).first
+		@comment = @entry.create_comment!(params[:comment])
+		if current_user
+			@comment.user = current_user
+			@comment.save
+		else
+			session[:username] = cookies[:username] = params[:comment][:username]
+		end
 		respond_to do |format|
 			format.js
 		end

@@ -10,7 +10,7 @@
 	</div>
 	<div id="keyword" class="block">
 		<%= form_tag '/logs/keyword', :method => 'get' do %>
-		<%= text_field_tag 'keyword', params[:keyword] || '', :id => "" %>
+		<%= text_field_tag 'keyword', params[:keyword] || '施工中= =', :id => "" %>
 		<input type="submit" value="搜索" class="btn" />
 		<% end %>
 	</div>

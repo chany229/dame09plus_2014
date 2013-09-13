@@ -44,3 +44,6 @@ end
 gem 'angularjs-rails'
 gem 'mongoid-simple-tags'
 gem 'kaminari'
+gem 'mongoid_commentable'
+gem 'sunspot_rails'
+gem 'sunspot_solr'

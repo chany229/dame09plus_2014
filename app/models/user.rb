@@ -7,7 +7,7 @@ class User
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -48,6 +48,8 @@ class User
   field :username, :type => String
   validates_presence_of :username
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
+
+  #has_many :comments, :validate => false
 
   #def created_at
   #  read_attribute(:created_at) + 8.hours

@@ -247,6 +247,9 @@ p.notice, p.alert {
   display: none;
   clear: both;
 }
+.comments {
+  font-size: 12px;
+}
 .comment_error_msg {
   color: $pink;
 }

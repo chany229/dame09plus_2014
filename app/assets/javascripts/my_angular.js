@@ -7,11 +7,23 @@ config(['$routeProvider', function($routeProvider) {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
 		controller: TagCtrl
 	}).
+	when('/logs/tag/:tag_name/p:page', {
+		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
+		controller: TagCtrl
+	}).
 	when('/logs/tags/:params', {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
 		controller: TagsCtrl
 	}).
+	when('/logs/tags/:params/p:page', {
+		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
+		controller: TagsCtrl
+	}).
 	when('/logs/:date', {
+		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
+		controller: DateCtrl
+	}).
+	when('/logs/:date/p:page', {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
 		controller: DateCtrl
 	}).
@@ -53,24 +65,41 @@ function LoadPageCtrl($scope, $rootScope, $location) {
 function DateCtrl($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var date = $routeParams.date;
+	var page = $routeParams.page;
 	var params = date.split('-');
 	console.log(date);
 	console.log(params);
-
-	if (params.length == 3) {
-		$scope.templateUrl = '/logs/' + params[0] + '/' + params[1] + '/' + params[2] + "?from_angular=1";
-	} else if (params.length == 2) {
-		$scope.templateUrl = '/logs/' + params[0] + '/' + params[1] + "?from_angular=1";
-	} else if (params.length == 1) {
-		$scope.templateUrl = '/logs/' + params[0] + "?from_angular=1";
+	if (page) {
+		if (params.length == 3) {
+			$scope.templateUrl = '/logs/date/' + params[0] + '/' + params[1] + '/' + params[2] + '/p' + page + "?from_angular=1";
+		} else if (params.length == 2) {
+			$scope.templateUrl = '/logs/date/' + params[0] + '/' + params[1] + '/p' + page + "?from_angular=1";
+		} else if (params.length == 1) {
+			$scope.templateUrl = '/logs/date/' + params[0] + '/p' + page + "?from_angular=1";
+		} else {
+			$scope.templateUrl = '/logs?from_angular=1';
+		}
 	} else {
-		$scope.templateUrl = '/logs?from_angular=1';
+		if (params.length == 3) {
+			$scope.templateUrl = '/logs/date/' + params[0] + '/' + params[1] + '/' + params[2] + "?from_angular=1";
+		} else if (params.length == 2) {
+			$scope.templateUrl = '/logs/date/' + params[0] + '/' + params[1] + "?from_angular=1";
+		} else if (params.length == 1) {
+			$scope.templateUrl = '/logs/date/' + params[0] + "?from_angular=1";
+		} else {
+			$scope.templateUrl = '/logs?from_angular=1';
+		}
 	}
 }
 function TagCtrl($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var tag_name = $routeParams.tag_name;
-	$scope.templateUrl = '/logs/tag/' + tag_name + "?from_angular=1";
+	var page = $routeParams.page;
+	if (page) {
+		$scope.templateUrl = '/logs/tag/' + tag_name + '/p' + page + "?from_angular=1";
+	} else {
+		$scope.templateUrl = '/logs/tag/' + tag_name + "?from_angular=1";
+	}
 }
 function TagsCtrl($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();

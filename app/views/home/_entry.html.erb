@@ -2,8 +2,8 @@
 	<%= entry.short %>
 
 	<% if entry.has_long? %>
-	<hr/>
 	<div id="long_of_e<%= entry.id %>" class="article">
+	<hr/>
 		<%= simple_format entry.long %>
 	</div>
 	<% end %>
@@ -23,16 +23,15 @@
 			<% end %>
 			<% end %> |
 			<%= entry.created_at.to_s %> |
-			<%#= link_to "comments(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').toggle();" %>
+			<%= link_to "comments(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').slideToggle();" %>
 		</div>
 		<div class="clear"></div>
 	</div>
 	<div id="comments_of_e<%= entry.id %>" class="comments">
-		<%#= render "public/comment_form", :entry => entry %>
-		<%# entry.comments.each do |comment| %>
-		<%#= comment.username %>：
-		<%#= comment.comment %>
-		<br/>
-		<%# end %>
+		<%= render "home/comment_form", :entry => entry %>
+		<hr/>
+		<% entry.comments.each do |comment| %>
+		<%= render "home/comment", :comment => comment %>
+		<% end %>
 	</div>
 </div>
