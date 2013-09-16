@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require angular
 //= require_tree .
+
+function setHash(a) {
+	location.hash = a;
+	//$.browser.msie ? $.locationHash(a) : location.hash = a;
+}

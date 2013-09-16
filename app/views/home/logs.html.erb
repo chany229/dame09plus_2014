@@ -1,5 +1,5 @@
 <div class="block" id="notice">
-	notice<%#= AppConfig.notice %>
+	删档公测中【…… 欢迎来玩~<%#= AppConfig.notice %>
 </div>
 <div id="entries">
 	<%= render "entries" %>
@@ -10,7 +10,7 @@
 	</div>
 	<div id="keyword" class="block">
 		<%= form_tag '/logs/keyword', :method => 'get' do %>
-		<%= text_field_tag 'keyword', params[:keyword] || '施工中= =', :id => "" %>
+		<%= text_field_tag 'keyword', params[:keyword] || '', :id => "", :placeholder => "施工中= =" %>
 		<input type="submit" value="搜索" class="btn" />
 		<% end %>
 	</div>

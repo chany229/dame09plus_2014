@@ -37,6 +37,7 @@ class HomeController < ApplicationController
 					@calendar_date = @entries.first.created_at
 					@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
 				end
+				@hash = "#/logs/p#{params[:page] || 1}"
 				render 'search.js.erb'
 			}
 		end
@@ -59,6 +60,7 @@ class HomeController < ApplicationController
 					@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
 					@tags = Entry.all_tags
 				end
+				@hash = "#/logs/tag/#{tag}/p#{params[:page] || 1}"
 				render 'search.js.erb'
 			}
 		end
@@ -87,6 +89,7 @@ class HomeController < ApplicationController
 					@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
 					@tags = Entry.all_tags
 				end
+				@hash = "#/logs/tags/#{type}-#{params[:tags]}/p#{params[:page] || 1}"
 				render 'search.js.erb'
 			}
 		end
@@ -122,16 +125,19 @@ class HomeController < ApplicationController
 			start_time = time.beginning_of_day
 			end_time = time.end_of_day
 			@filter = "#{@year}年#{@month}月#{@day}日"
+			@hash = "#/logs/#{@year}-#{@month}-#{@day}/p#{params[:page] || 1}"
 		elsif params[:month]
 			time = Time.new(@year, @month, 1)
 			start_time = time.beginning_of_month
 			end_time = time.end_of_month
 			@filter = "#{@year}年#{@month}月"
+			@hash = "#/logs/#{@year}-#{@month}/p#{params[:page] || 1}"
 		elsif params[:year]
 			time = Time.new(@year, 1, 1)
 			start_time = time.beginning_of_year
 			end_time = time.end_of_year
 			@filter = "#{@year}年"
+			@hash = "#/logs/#{@year}/p#{params[:page] || 1}"
 		else
 			redirect_to '#/logs'
 			return

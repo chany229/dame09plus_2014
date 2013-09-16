@@ -3,6 +3,10 @@ config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 	when('/top', {templateUrl: '/top?from_angular=1'}).
 	when('/logs', {templateUrl: '/logs?from_angular=1'}).
+	when('/logs/p:page', {
+		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
+		controller: DateCtrl
+	}).
 	when('/logs/tag/:tag_name', {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
 		controller: TagCtrl
@@ -66,7 +70,11 @@ function DateCtrl($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var date = $routeParams.date;
 	var page = $routeParams.page;
+	if (date) {
 	var params = date.split('-');
+} else {
+	var params = new Array();
+}
 	console.log(date);
 	console.log(params);
 	if (page) {
@@ -77,7 +85,7 @@ function DateCtrl($scope, $routeParams, $templateCache) {
 		} else if (params.length == 1) {
 			$scope.templateUrl = '/logs/date/' + params[0] + '/p' + page + "?from_angular=1";
 		} else {
-			$scope.templateUrl = '/logs?from_angular=1';
+			$scope.templateUrl = '/logs/p' + page + '?from_angular=1';
 		}
 	} else {
 		if (params.length == 3) {

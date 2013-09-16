@@ -10,7 +10,7 @@ Dame09plus::Application.routes.draw do
 	match 'logs/date/:year(/p:page)(.:format)' => 'home#date',:as => :year
 	match 'logs/date/:year/:month(/p:page)(.:format)' => 'home#date',:as => :month
 	match 'logs/date/:year/:month/:day(/p:page)(.:format)' => 'home#date',:as => :day
-	match 'logs(.:format)' => 'home#logs', :as => :logs
+	match 'logs(/p:page)(.:format)' => 'home#logs', :as => :logs
 	match 'top(.:format)' => 'home#top', :as => :top
 	match 'frame(/:type)' => 'home#frame', :as => :frame
 	authenticated :user do
