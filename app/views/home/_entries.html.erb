@@ -3,23 +3,23 @@
 <%= render "entry", :entry => entry %>
 <% end %>
 <div id="logs_info">
-<div id="filter_info">过滤条件:<%= @filter %></div>
-<div id="total_info">共有<%= @entries.total_count %>条日志</div>
-<%# if remote? %>
-<%= paginate @entries, :remote => true %>
-<%# elsif @entries.total_pages > 1 %>
-<%# @entries.total_pages.times do |i| %>
-<%# end %>
-<%# end %>
-<div class="clear"></div>
+	<div id="filter_info">过滤条件:<%= @filter %></div>
+	<div id="total_info">共有<%= @entries.total_count %>条日志</div>
+	<%# if remote? %>
+	<%= paginate @entries, :remote => true %>
+	<%# elsif @entries.total_pages > 1 %>
+	<%# @entries.total_pages.times do |i| %>
+	<%# end %>
+	<%# end %>
+	<div class="clear"></div>
 </div>
 <% else %>
 <div class="block" id="not_found">
-未找到符合条件的结果
+	未找到符合条件的结果
 </div>
 <div id="logs_info">
-<div id="filter_info">过滤条件:<%= @filter %></div>
-<div id="total_info">共有0条日志</div>
-<div class="clear"></div>
+	<div id="filter_info">过滤条件:<%= @filter %></div>
+	<div id="total_info">共有0条日志</div>
+	<div class="clear"></div>
 </div>
 <% end %>

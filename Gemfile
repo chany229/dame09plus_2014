@@ -45,5 +45,7 @@ gem 'angularjs-rails'
 gem 'mongoid-simple-tags'
 gem 'kaminari'
 gem 'mongoid_commentable'
+gem 'thin'
 #gem 'sunspot_rails'
-#gem 'sunspot_solr'
+#gem 'sunspot_solr'#bundle exec rake sunspot:solr:start
+#gem 'sunspot_mongoid'

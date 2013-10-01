@@ -1,10 +1,10 @@
-<% if remote? %>
-<% if @should_load_log %>
-	$("#menu").html("<%= j render "home/menu" %>");
-	$("#content").html("<%= j render "home/list" %>");
-<% else %>
-	$("#entries").html("<%= j render "home/entries" %>");
-<% end %>
-<% else %>
+<%# if remote? %>
+<%# if @should_load_log %>
+	//$("#menu").html("<%#= j render "home/menu" %>");
+	//$("#content").html("<%#= j render "home/list" %>");
+<%# else %>
+	//$("#entries").html("<%#= j render "home/entries" %>");
+<%# end %>
+<%# else %>
 setHash("<%= @hash %>");
-<% end %>
+<%# end %>

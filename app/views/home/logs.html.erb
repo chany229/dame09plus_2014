@@ -9,8 +9,8 @@
 		<%= render "calendar", :date => @calendar_date, :events => @calendar_events %>
 	</div>
 	<div id="keyword" class="block">
-		<%= form_tag '/logs/keyword', :method => 'get' do %>
-		<%= text_field_tag 'keyword', params[:keyword] || '', :id => "", :placeholder => "施工中= =" %>
+		<%= form_tag '/logs/keyword', :method => 'get', :remote => true do %>
+		<%= text_field_tag 'keyword', params[:keyword] || '', :id => "", :placeholder => "请输入关键词" %>
 		<input type="submit" value="搜索" class="btn" />
 		<% end %>
 	</div>
@@ -27,3 +27,8 @@
 	</div>
 </div>
 <div class="clear"></div>
+<script type="text/javascript">
+(function($){
+	$('.entry').highlight(['<%= params[:keyword] %>']);
+})(jQuery)	
+</script>

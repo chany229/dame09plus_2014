@@ -7,6 +7,14 @@ config(['$routeProvider', function($routeProvider) {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
 		controller: DateCtrl
 	}).
+	when('/logs/keyword/:keyword', {
+		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
+		controller: KeywordCtrl
+	}).
+	when('/logs/keyword/:keyword/p:page', {
+		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
+		controller: KeywordCtrl
+	}).
 	when('/logs/tag/:tag_name', {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',
 		controller: TagCtrl
@@ -32,7 +40,7 @@ config(['$routeProvider', function($routeProvider) {
 		controller: DateCtrl
 	}).
 	otherwise({redirectTo: '/top'});
-}]);
+}])
 function SideCtrl($scope, $location) {
 	$scope.sideLiClass = function(path) {
 		var cur_path = $location.path();
@@ -97,6 +105,16 @@ function DateCtrl($scope, $routeParams, $templateCache) {
 		} else {
 			$scope.templateUrl = '/logs?from_angular=1';
 		}
+	}
+}
+function KeywordCtrl($scope, $routeParams, $templateCache) {
+	$templateCache.removeAll();
+	var keyword = $routeParams.keyword;
+	var page = $routeParams.page;
+	if (page) {
+		$scope.templateUrl = '/logs/keyword/' + keyword + '/p' + page + "?from_angular=1";
+	} else {
+		$scope.templateUrl = '/logs/keyword/' + keyword + "?from_angular=1";
 	}
 }
 function TagCtrl($scope, $routeParams, $templateCache) {
