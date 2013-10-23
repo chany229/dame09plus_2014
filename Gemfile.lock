@@ -198,6 +198,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    rolify (3.2.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -278,6 +279,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  rolify
   rspec-rails
   sass-rails (~> 3.2.3)
   therubyracer

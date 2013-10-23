@@ -41,7 +41,7 @@ config(['$routeProvider', function($routeProvider) {
 	}).
 	otherwise({redirectTo: '/top'});
 }])
-function SideCtrl($scope, $location) {
+var SideCtrl = ['$scope', '$location', function($scope, $location) {
 	$scope.sideLiClass = function(path) {
 		var cur_path = $location.path();
 		console.log(cur_path);
@@ -51,8 +51,8 @@ function SideCtrl($scope, $location) {
 			return "";
 		}
 	}
-}
-function LoadPageCtrl($scope, $rootScope, $location) {
+}];
+var LoadPageCtrl = ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
 	$scope.isViewLoading = false;
 	$scope.$on('$locationChangeStart', function(event, next, current) {
 		console.log('location change');
@@ -73,8 +73,8 @@ function LoadPageCtrl($scope, $rootScope, $location) {
 	$rootScope.$on('$routeChangeSuccess', function() {
 		$scope.isViewLoading = false;
 	});
-}
-function DateCtrl($scope, $routeParams, $templateCache) {
+}];
+var DateCtrl = ['$scope', '$routeParams', '$templateCache', function($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var date = $routeParams.date;
 	var page = $routeParams.page;
@@ -106,8 +106,8 @@ function DateCtrl($scope, $routeParams, $templateCache) {
 			$scope.templateUrl = '/logs?from_angular=1';
 		}
 	}
-}
-function KeywordCtrl($scope, $routeParams, $templateCache) {
+}];
+var KeywordCtrl = ['$scope', '$routeParams', '$templateCache', function($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var keyword = $routeParams.keyword;
 	var page = $routeParams.page;
@@ -116,8 +116,8 @@ function KeywordCtrl($scope, $routeParams, $templateCache) {
 	} else {
 		$scope.templateUrl = '/logs/keyword/' + keyword + "?from_angular=1";
 	}
-}
-function TagCtrl($scope, $routeParams, $templateCache) {
+}];
+var TagCtrl = ['$scope', '$routeParams', '$templateCache', function($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var tag_name = $routeParams.tag_name;
 	var page = $routeParams.page;
@@ -126,9 +126,9 @@ function TagCtrl($scope, $routeParams, $templateCache) {
 	} else {
 		$scope.templateUrl = '/logs/tag/' + tag_name + "?from_angular=1";
 	}
-}
-function TagsCtrl($scope, $routeParams, $templateCache) {
+}];
+var TagsCtrl = ['$scope', '$routeParams', '$templateCache', function($scope, $routeParams, $templateCache) {
 	$templateCache.removeAll();
 	var params = $routeParams.params.split('-');
 	$scope.templateUrl = '/logs/tags/' + params[0] + '/' +params[1] + "?from_angular=1";
-}
+}];

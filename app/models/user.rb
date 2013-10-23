@@ -3,6 +3,8 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  #rolify
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -46,7 +48,7 @@ class User
   # run 'rake db:mongoid:create_indexes' to create indexes
   index({ email: 1 }, { unique: true, background: true })
   field :username, :type => String
-  validates_presence_of :username
+  validates :username, :uniqueness => true, :presence => true
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 
   #has_many :comments, :validate => false

@@ -1,5 +1,6 @@
 class Comment
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid_Commentable::Comment
   attr_accessible :body, :username
   field :body, :type => String

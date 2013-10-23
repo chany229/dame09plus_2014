@@ -46,6 +46,7 @@ gem 'mongoid-simple-tags'
 gem 'kaminari'
 gem 'mongoid_commentable'
 gem 'thin'
+gem 'rolify'
 #gem 'sunspot_rails'
 #gem 'sunspot_solr'#bundle exec rake sunspot:solr:start
 #gem 'sunspot_mongoid'

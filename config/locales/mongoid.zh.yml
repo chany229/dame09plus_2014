@@ -1,0 +1,11 @@
+zh:
+  errors:
+    messages:
+      not_saved: 保存信息失败
+  mongoid:
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              taken: 该昵称已被注册

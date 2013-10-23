@@ -28,8 +28,8 @@ class HomeController < ApplicationController
 				@entries = Entry.desc(:created_at).page(params[:page] || 1).per(5)
 				@filter  = "全部"
 				@tags = Entry.all_tags
-				@calendar_date = @entries.first.created_at
-				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+				@calendar_date = Time.now
+				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
 			}
 			format.js {
 				@hash = "#/logs/p#{params[:page] || 1}"
@@ -45,7 +45,7 @@ class HomeController < ApplicationController
 				@entries = Entry.tagged_with(tag).desc(:created_at).page(params[:page] || 1).per(5)
 				@filter  = "标签[#{tag}]"
 				@calendar_date = Time.now
-				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
 				@tags = Entry.all_tags
 				render :action => :logs
 			}
@@ -69,7 +69,7 @@ class HomeController < ApplicationController
 			@filter  = "标签或搜索[#{params[:tags]}]"
 		end
 		@calendar_date = Time.now
-		@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+		@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
 		@tags = Entry.all_tags
 		render :action => :logs
 	}
@@ -87,7 +87,7 @@ def keyword
 			@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(params[:page] || 1).per(5)
 			@filter  = "关键词[#{keyword}]"
 			@calendar_date = Time.now
-			@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+			@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
 			@tags = Entry.all_tags
 			render :action => :logs
 		}
@@ -128,8 +128,9 @@ def date
 	respond_to do |format|
 		format.html {
 			@entries = Entry.where(:created_at => start_time..end_time).desc(:created_at).page(params[:page] || 1).per(5)
-			@calendar_date = Time.now
-			@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date).map{ |e| e.created_at.day }.uniq
+			@calendar_date = time
+			Rails.logger.info @calendar_date.month.to_s + " <= month !!!!!!!!!!!!!!"
+			@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
 			@tags = Entry.all_tags
 			render :action => :logs
 		}

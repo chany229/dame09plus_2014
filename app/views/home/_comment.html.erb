@@ -1,7 +1,15 @@
-<br/>
-<% if comment.user %>
-<%= comment.user.username %>：
-<% else %>
-<%= comment.username %>：
-<% end %>
-<%= comment.body %>
+<tr>
+	<td width="50px">
+		<% if comment.user %>
+		<%= comment.user.username %>：
+		<% else %>
+		<%= comment.username %>：
+		<% end %>
+	</td>
+	<td width="290px">
+		<%= comment.body %>
+	</td>
+	<td width="100px">
+		<%= comment.created_at.to_s %>
+	</td>
+</tr>
