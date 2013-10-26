@@ -1,12 +1,15 @@
 zh:
   back: 返回
   change_password: 修改密码
+  confirm: 确定
   destroy: 删除
   edit: 编辑
+  edit_account: 编辑账户
   email: 电邮
   entry: 条目
   forgot_password: 忘记密码？
   forgot_password_title: 找回密码
+  login: 用户名或密码
   new: 新建
   password: 密码
   please_input: 请输入

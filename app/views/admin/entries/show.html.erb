@@ -10,6 +10,9 @@
   <%= @entry.long %>
 </p>
 
+<% if @entry.image %>
+<%= image_tag @entry.image_url(:mini) %>
+<% end %>
 
 <%= link_to 'Edit', edit_admin_entry_path(@entry) %> |
 <%= link_to 'Back', admin_entries_path %>

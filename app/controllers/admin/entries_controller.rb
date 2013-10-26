@@ -1,10 +1,11 @@
 # encoding: utf-8
 class Admin::EntriesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :check_admin_permission
   # GET /admin/entries
   # GET /admin/entries.json
   def index
-    @entries = Entry.all
+    @entries = Entry.desc(:created_at).page(params[:page] || 1).per(20)
 
     respond_to do |format|
       format.html # index.html.erb

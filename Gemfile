@@ -7,7 +7,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'jquery-rails'
-gem 'devise'
+gem 'devise', "3.0.1"
 gem "cancan"
 gem 'figaro'
 gem 'mongoid'
@@ -50,3 +50,6 @@ gem 'rolify'
 #gem 'sunspot_rails'
 #gem 'sunspot_solr'#bundle exec rake sunspot:solr:start
 #gem 'sunspot_mongoid'
+gem "mongoid-simple-roles", "0.0.1"
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'rmagick'

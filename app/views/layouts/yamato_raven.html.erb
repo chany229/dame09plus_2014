@@ -13,7 +13,7 @@
   <header>
     <div id="login_link">
       <% if current_user %>
-        <%= current_user.username %>
+        <%= link_to current_user.username, edit_registration_path(:user) %>
         <%# if current_user.has_role?("admin") %>
           <%#= link_to '管理界面', admin_path %>
         <%# end %>
@@ -33,6 +33,6 @@
       <%= yield %>
     </div>
   </div>
-  <footer>22222</footer>
+  <footer>Copyright © 2013 - 六十 - Powered by Ruby on Rails</footer>
 </body>
 </html>

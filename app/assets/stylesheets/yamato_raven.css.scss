@@ -259,6 +259,7 @@ p.notice, p.alert {
 }
 #logs_info {
   font-size: 14px;
+  margin-bottom: 20px;
 }
 #filter_info, #total_info {
   float: left;
@@ -333,4 +334,10 @@ p.notice, p.alert {
 }
 .keyword {
   color: yellow;
+}
+.mini {
+  cursor: url('/assets/zoomInCursor.png'), pointer;
+}
+.thumb {
+  cursor: url('/assets/zoomOutCursor.png'), pointer;
 }

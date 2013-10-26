@@ -14,6 +14,8 @@ zh:
       timeout: '您已登录超时，请重新登录.'
       inactive: '您还没有激活帐户.'
       already_authenticated: "您已经登录了."
+      user:
+        not_found_in_database: '您的账号还未注册'
     sessions:
       signed_in: '登录成功.'
       signed_out: '退出成功.'

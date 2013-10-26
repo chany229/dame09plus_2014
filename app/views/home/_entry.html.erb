@@ -1,9 +1,13 @@
 <div class="entry block" id="entry_<%= entry.id %>">
 	<%= entry.short %>
 
+	<% if entry.image_url %>
+	<br/><%= image_tag entry.image_url(:mini), :class => "image_of_entry mini" %>
+	<% end %>
+
 	<% if entry.has_long? %>
 	<div id="long_of_e<%= entry.id %>" class="article">
-	<hr/>
+		<hr/>
 		<%= simple_format entry.long %>
 	</div>
 	<% end %>

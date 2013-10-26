@@ -9,7 +9,7 @@ class User
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -48,12 +48,33 @@ class User
   # run 'rake db:mongoid:create_indexes' to create indexes
   index({ email: 1 }, { unique: true, background: true })
   field :username, :type => String
-  validates :username, :uniqueness => true, :presence => true
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
+  validates :username, :uniqueness => { :case_sensitive => false }, :presence => true
+  attr_accessor :login
+  attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 
   #has_many :comments, :validate => false
 
   #def created_at
   #  read_attribute(:created_at) + 8.hours
   #end
+
+  include Mongoid::Document::Roleable
+
+
+
+  # fields ^
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login).downcase
+      where(conditions).where('$or' => [ {:username => /^#{Regexp.escape(login)}$/i}, {:email => /^#{Regexp.escape(login)}$/i} ]).first
+    else
+      where(conditions).first
+    end
+  end 
+
+  before_create :init_roles
+  def init_roles
+    self.roles = []
+  end
 end
