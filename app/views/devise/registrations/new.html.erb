@@ -1,6 +1,6 @@
 <h2><%= t "sign_up" %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :id => "register_form") do |f| %>
   <%= devise_error_messages! %>
 
   <div><%= f.email_field :email, :placeholder => "请输入#{t "email"}" %></div>
@@ -11,7 +11,34 @@
 
   <div><%= f.password_field :password_confirmation, :placeholder => "请再次输入#{t "password"}" %></div>
 
-  <div><%= f.submit t("sign_up"), :class => 'btn' %></div>
+  <div><%= submit_tag t("sign_up"), :class => 'btn' %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#register_form').validate({
+		rules: {
+			email: {
+				email: true,
+				required: true
+			},
+			username: {
+				required:true
+			},
+		},
+		messages: {
+			email: {
+				email: '请输入正确的电邮地址',
+				required: '此项为必录项目，请填写内容'
+			},
+			username: {
+				required: '此项为必录项目，请填写内容'
+			},
+		}//,
+		//errorPlacement: function(error, element) {
+			//error.appendTo( element.parent().last() );
+		//}
+	});
+});
+</script>

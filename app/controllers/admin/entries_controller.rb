@@ -2,6 +2,7 @@
 class Admin::EntriesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :check_admin_permission
+  #layout 'admin'
   # GET /admin/entries
   # GET /admin/entries.json
   def index

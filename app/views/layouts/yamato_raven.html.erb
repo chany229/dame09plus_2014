@@ -11,6 +11,7 @@
   <% if notice %><p class="notice"><%= notice %></p><% end %>
   <% if alert %><p class="alert"><%= alert %></p><% end %>
   <header>
+    <%= link_to "马太目欢乐颂+", root_path %>
     <div id="login_link">
       <% if current_user %>
         <%= link_to current_user.username, edit_registration_path(:user) %>
@@ -33,6 +34,6 @@
       <%= yield %>
     </div>
   </div>
-  <footer>Copyright © 2013 - 六十 - Powered by Ruby on Rails</footer>
+  <footer>Powered by Ruby on Rails</footer>
 </body>
 </html>

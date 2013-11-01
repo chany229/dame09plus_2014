@@ -12,7 +12,7 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
 
-    <%= stylesheet_link_tag "bootstrap_and_overrides", "application", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -47,10 +47,9 @@
           <a class="brand" href="#">Dame09plus</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "管理", admin_entries_path %></li>
-              <li><%= link_to "统计", admin_articles_path %></li>
-              <li><%= link_to "返回TOP", top_path  %></li>
-              <li><%= link_to "返回INDEX", root_path  %></li>
+              <li><%= link_to "Link1", "/path1"  %></li>
+              <li><%= link_to "Link2", "/path2"  %></li>
+              <li><%= link_to "Link3", "/path3"  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -63,11 +62,9 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
-              <li><%= link_to "系统变量", admin_path %></li>
-              <li><%= link_to "条目", admin_entries_path %></li>
-              <li><%= link_to "长文", admin_articles_path %></li>
-              <li><%= link_to "评论", admin_comments_path %></li>
-              <li><%= link_to "游戏", admin_games_path %></li>
+              <li><%= link_to "Link1", "/path1"  %></li>
+              <li><%= link_to "Link2", "/path2"  %></li>
+              <li><%= link_to "Link3", "/path3"  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -78,7 +75,7 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2012</p>
+        <p>&copy; Company 2013</p>
       </footer>
 
     </div> <!-- /container -->

@@ -53,3 +53,6 @@ gem 'rolify'
 gem "mongoid-simple-roles", "0.0.1"
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'rmagick'
+
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap_helper'

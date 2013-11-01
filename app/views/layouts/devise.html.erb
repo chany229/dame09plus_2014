@@ -9,12 +9,14 @@
 <body>
   <% if notice %><p class="notice"><%= notice %></p><% end %>
   <% if alert %><p class="alert"><%= alert %></p><% end %>
-  <header>马太目欢乐颂+</header>
+  <header>
+    <%= link_to "马太目欢乐颂+", root_path %>
+  </header>
   <div id="body_content">
     <div id="content" class="block">
       <%= yield %>
     </div>
   </div>
-  <footer></footer>
+  <footer>Powered by Ruby on Rails</footer>
 </body>
 </html>
