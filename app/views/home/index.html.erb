@@ -14,6 +14,7 @@
 				text-align: center;
 				height: 100%;
 				font-size: 12px;
+				font-family: 'microsoft yahei';
 			}
 			span {
 				color: red;
@@ -54,9 +55,7 @@
 			<div id="content">
 				<%= image_tag("banner.png") %>
 				<br/>
-				某脱腐中程序猿的废言满载日记站
-				<br/>
-				混有少量票友级瞎眼版权绘
+				一个个人日记站=L=
 				<br/>
 				对<span>二次元</span>、<span>再创作</span>等词汇不明或反感者请<span>全速脱出</span>
 				<div id="notice">
@@ -67,18 +66,17 @@
 				<div class="links">
 					<%#= link_to "Jquery版入口", frame_path(:type => :jquery) %>
 					<%= link_to "进入", frame_path %>
-					<span>推荐使用Chrome浏览器</span>
+					<span>推荐使用Chrome浏览器=L=</span>
 				</div>
 				<div class="links">
 					<% if current_user %>
 			    		<%= current_user.username %>
-			    		<%# if current_user.has_role?("admin") %>
-			    			<%#= link_to '管理界面', admin_path %>
-			    		<%# end %>
+			    		<%= link_to('管理界面', admin_entries_path) if current_user.has_role?(:admin) %>
 			    		<%= link_to '注销', destroy_session_path(:user), :method => :delete %>
 		    		<% else %>
 			    		<%= link_to '登录', new_session_path(:user) %>
 			    		<%= link_to '注册', new_registration_path(:user) %>
+			    		<span>不推荐使用IE内核浏览器进行访问=L=</span>
 		    		<% end %>
 	    		</div>
 			</div>

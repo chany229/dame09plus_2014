@@ -14,26 +14,38 @@
     <%= link_to "马太目欢乐颂+", root_path %>
     <div id="login_link">
       <% if current_user %>
-        <%= link_to current_user.username, edit_registration_path(:user) %>
-        <%# if current_user.has_role?("admin") %>
-          <%#= link_to '管理界面', admin_path %>
-        <%# end %>
-        <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
+      <%= link_to current_user.username, edit_registration_path(:user) %>
+      <%= link_to('管理界面', admin_entries_path) if current_user.has_role?(:admin) %>
+      <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
       <% else %>
-        <%= link_to '登录', new_session_path(:user) %>
-        <%= link_to '注册', new_registration_path(:user) %>
+      <%= link_to '登录', new_session_path(:user) %>
+      <%= link_to '注册', new_registration_path(:user) %>
       <% end %>
     </div>
   </header>
   <div id="container">
     <div id="side" ng-controller="SideCtrl">
-      <%#= yield :side %>
-      <%= render "home/side" %>
+      <a href="#/profile" title="关于六十"><img id="face" src="/assets/face0.png" alt="六十"></a>
+      <ul id="menu">
+        <% if remote? %>
+        <%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), top_path %>
+        <%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), logs_path %>
+        <% else %>
+        <%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), "#/top" %>
+        <%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), "#/logs" %>
+        <% end %>
+      </ul>
+      <div id="music_player">
+        <embed src="http://www.xiami.com/widget/4409085_1770804402,1769911898,_200_200_000000_000000_0/multiPlayer.swf" type="application/x-shockwave-flash" width="200" height="200" wmode="opaque"></embed>
+      </div>
+
     </div>
     <div id="content">
       <%= yield %>
     </div>
   </div>
-  <footer>Powered by Ruby on Rails</footer>
+  <div id="footer-wrapper">
+    <footer>Powered by Ruby on Rails</footer>
+  </div>
 </body>
 </html>

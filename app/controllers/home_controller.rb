@@ -21,6 +21,9 @@ class HomeController < ApplicationController
 
 	def top
 	end
+	
+	def profile
+	end
 
 	def logs
 		respond_to do |format|

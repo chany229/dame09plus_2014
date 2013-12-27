@@ -1,6 +1,12 @@
 <a href="#/profile" title="关于六十"><img id="face" src="/assets/face0.png" alt="六十"></a>
 <ul id="menu">
-	<%= render "home/menu" %>
+	<% if remote? %>
+	<%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), top_path %>
+	<%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), logs_path %>
+	<% else %>
+	<%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), "#/top" %>
+	<%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), "#/logs" %>
+	<% end %>
 </ul>
 <div id="music_player">
 	<embed src="http://www.xiami.com/widget/4409085_1770804402,1769911898,_200_200_000000_000000_0/multiPlayer.swf" type="application/x-shockwave-flash" width="200" height="200" wmode="opaque"></embed>
