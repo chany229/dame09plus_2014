@@ -30,6 +30,13 @@
 <script type="text/javascript">
 (function($){
 	$('.entry').highlight(['<%= params[:keyword] %>']);
+	//$('.colorpicker').colorpicker();
 })(jQuery)
 init_zoom_image();
+$('body').keypress(function(e){
+	var actdiv = $(':focus');
+	if(e.ctrlKey && e.which == 13 || e.which == 10) {
+		actdiv.parents("form").submit();
+	}
+});
 </script>

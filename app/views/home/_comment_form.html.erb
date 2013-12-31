@@ -1,17 +1,18 @@
 <hr/>
 <%= form_tag create_comment_path, :remote => true do %>
-	<%= hidden_field_tag :entry_id, entry.id %>
-	<%#= hidden_field_tag 'comment[commentable_type]', 'Entry' %>
-	<% if current_user %>
-		<%#= hidden_field_tag 'comment[user_id]', current_user.id %>
-		<%#= hidden_field_tag 'comment[username]', current_user.username%>
-	<% else %>
-		<span class="margintb">
-			<%= text_field_tag 'comment[username]', session[:username] || cookies[:username] || '', :placeholder => "输入昵称" %> 或 <%= link_to '登录', new_session_path(:user) %>/<%= link_to '注册', new_registration_path(:user) %>
-		</span>
-	<% end %>
-	<%= text_area_tag 'comment[body]', '', :placeholder => "请在此输入留言", :rows => 4, :id => "comment_area_for_e#{entry.id}" %>
-	<%= submit_tag '留言', :class => 'btn margintb' %>
-	<span id="comment_error_msg_for_e<%= entry.id %>" class="comment_error_msg left margintb"></span>
-	<div class="clear"></div>
+<%= hidden_field_tag :entry_id, entry.id %>
+<%#= hidden_field_tag 'comment[commentable_type]', 'Entry' %>
+<% if current_user %>
+<%#= hidden_field_tag 'comment[user_id]', current_user.id %>
+<%#= hidden_field_tag 'comment[username]', current_user.username%>
+<% else %>
+<span class="margintb">
+	<%= text_field_tag 'comment[username]', session[:username] || cookies[:username] || '', :placeholder => "输入昵称" %> 或 <%= link_to '登录', new_session_path(:user) %>/<%= link_to '注册', new_registration_path(:user) %>
+</span>
+<% end %>
+<%= text_area_tag 'comment[body]', '', :placeholder => "请在此输入留言", :rows => 4, :id => "comment_area_for_e#{entry.id}" %>
+<%#= text_field_tag 'comment[color]', session[:comment_color] || cookies[:comment_color] || '#f8b500', :placeholder => "请选择颜色值", :class => "colorpicker" %>
+<%= submit_tag '留言', :class => 'btn margintb' %>
+<span id="comment_error_msg_for_e<%= entry.id %>" class="comment_error_msg left margintb"></span>
+<div class="clear"></div>
 <% end %>

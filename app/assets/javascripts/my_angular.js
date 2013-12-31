@@ -3,6 +3,7 @@ config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 	when('/top', {templateUrl: '/top?from_angular=1'}).
 	when('/profile', {templateUrl: '/profile?from_angular=1'}).
+	when('/links', {templateUrl: '/links?from_angular=1'}).
 	when('/logs', {templateUrl: '/logs?from_angular=1'}).
 	when('/logs/p:page', {
 		template: '<div ng-include src="templateUrl"><div class="loading"></div></div>',

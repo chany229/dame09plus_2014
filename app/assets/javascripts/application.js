@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+// require jquery.ui.all
 //= require twitter/bootstrap
 //= require angular
+// require evol.colorpicker
 //= require_tree .
 
 function setHash(a) {

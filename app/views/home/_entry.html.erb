@@ -27,7 +27,7 @@
 			<% end %>
 			<% end %> |
 			<%= entry.created_at.to_s %> |
-			<%= link_to "comments(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').slideToggle();" %>
+			<%= link_to "评论(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').slideToggle();" %>
 		</div>
 		<div class="clear"></div>
 	</div>

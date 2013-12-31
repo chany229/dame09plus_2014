@@ -3,9 +3,11 @@
 	<% if remote? %>
 	<%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), top_path %>
 	<%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), logs_path %>
+	<%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LINKs</li>"), links_path %>
 	<% else %>
 	<%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), "#/top" %>
 	<%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), "#/logs" %>
+	<%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LINKs</li>"), "#/links" %>
 	<% end %>
 </ul>
 <div id="music_player">

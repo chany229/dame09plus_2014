@@ -25,6 +25,9 @@ class HomeController < ApplicationController
 	def profile
 	end
 
+	def links
+	end
+
 	def logs
 		respond_to do |format|
 			format.html {
@@ -159,6 +162,7 @@ def create_comment
 	else
 		session[:username] = cookies[:username] = params[:comment][:username]
 	end
+	session[:comment_color] = cookies[:comment_color] = params[:comment][:comment_color]
 	respond_to do |format|
 		format.js
 	end
