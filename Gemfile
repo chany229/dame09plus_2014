@@ -5,7 +5,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-ui-rails'
+  #gem 'jquery-ui-rails'
 end
 gem 'jquery-rails'
 gem 'devise', "3.0.1"
@@ -53,10 +53,15 @@ gem 'rolify'
 #gem 'sunspot_mongoid'
 gem "mongoid-simple-roles", "0.0.1"
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'carrierwave-meta'
 gem 'rmagick'
 
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap_helper'
 
+gem 'pie-rails'
 
-#gem 'remotipart', '~> 1.2' #remote方式上传文件
+#gem 'weibo_2'
+gem 'remotipart', '~> 1.2' #remote方式上传文件
+
+#gem 'mongoid_auto_increment_id', "0.6.1"

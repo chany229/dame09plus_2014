@@ -57,6 +57,10 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
+    carrierwave-meta (0.0.5)
+      activesupport (>= 3.0)
+      carrierwave (>= 0.5.7)
+      mime-types
     carrierwave-mongoid (0.6.3)
       carrierwave (>= 0.8.0, < 0.10.0)
       mongoid (>= 3.0, < 5.0)
@@ -129,8 +133,6 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.1.1)
-      railties (>= 3.1.0)
     json (1.8.1)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
@@ -175,6 +177,7 @@ GEM
       mini_portile (~> 0.5.0)
     origin (1.1.0)
     orm_adapter (0.4.0)
+    pie-rails (1.1.0)
     polyglot (0.3.3)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -209,6 +212,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    remotipart (1.2.1)
     rmagick (2.13.2)
     rolify (3.2.0)
     rspec (2.14.1)
@@ -276,6 +280,7 @@ DEPENDENCIES
   bootstrap_helper
   cancan
   capybara
+  carrierwave-meta
   carrierwave-mongoid
   coffee-rails (~> 3.2.1)
   cucumber-rails
@@ -290,7 +295,6 @@ DEPENDENCIES
   guard-rspec
   hub
   jquery-rails
-  jquery-ui-rails
   kaminari
   launchy
   mongoid
@@ -298,11 +302,13 @@ DEPENDENCIES
   mongoid-simple-roles (= 0.0.1)
   mongoid-simple-tags
   mongoid_commentable
+  pie-rails
   quiet_assets
   rails (= 3.2.13)
   rb-fchange
   rb-fsevent
   rb-inotify
+  remotipart (~> 1.2)
   rmagick
   rolify
   rspec-rails

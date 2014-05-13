@@ -6,7 +6,7 @@
 	<div id="filter_info">过滤条件:<%= @filter %></div>
 	<div id="total_info">共有<%= @entries.total_count %>条日志</div>
 	<%# if remote? %>
-	<%= paginate @entries, :remote => true %>
+	<%= paginate @entries  %>
 	<%# elsif @entries.total_pages > 1 %>
 	<%# @entries.total_pages.times do |i| %>
 	<%# end %>

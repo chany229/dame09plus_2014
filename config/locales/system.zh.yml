@@ -2,9 +2,11 @@ zh:
   back: 返回
   change_password: 修改密码
   confirm: 确定
+  current_password: 当前密码
   destroy: 删除
   edit: 编辑
   edit_account: 编辑账户
+  edit_password: 修改密码
   email: 电邮
   entry: 条目
   forgot_password: 忘记密码？

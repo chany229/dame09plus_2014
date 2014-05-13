@@ -3,7 +3,7 @@ class Entry
   include Mongoid::Document
   include Mongoid::Document::Taggable
   include Mongoid::Timestamps
-  include Mongoid::Commentable
+  #include Mongoid::Commentable
   field :short, :type => String
   field :long,  :type => String
 
@@ -26,4 +26,6 @@ class Entry
   def gsub_long
     self.long = self.long.blank? ? "" : self.long.gsub(/\r\n/," \n").gsub(/ +/," ")
   end
+
+  has_many :comments, :class_name => "NewComment", :as => :commentable
 end

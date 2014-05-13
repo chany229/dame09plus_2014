@@ -4,6 +4,7 @@ zh:
       not_found: "没有找到"
       already_confirmed: "已经确认"
       not_locked: "没有锁定"
+      not_saved: "%{count}个错误导致保存账号失败"
   devise:
     failure:
       unauthenticated: '继续操作前请注册或者登录.'

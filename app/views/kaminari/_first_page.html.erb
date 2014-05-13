@@ -1,0 +1,7 @@
+<span class="first">
+    <% if @page_hash %>
+    <%= link_to_unless current_page.first?, t('views.pagination.first').html_safe, "#{@page_hash}/p1", :remote => remote %>
+    <% else %>
+    <%= link_to_unless current_page.first?, t('views.pagination.first').html_safe, url, :remote => remote %>
+    <% end %>
+</span>

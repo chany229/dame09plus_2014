@@ -2,8 +2,8 @@
 
 <table>
   <tr>
-    <th>Short</th>
-    <th>Long</th>
+    <th>摘要</th>
+    <th>评论数</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,7 +12,7 @@
 <% @entries.each do |entry| %>
   <tr>
     <td><%= entry.short %></td>
-    <td><%#= entry.long %></td>
+    <td><%= entry.comments.count %></td>
     <td><%= link_to 'Show', [:admin, entry] %></td>
     <td><%= link_to 'Edit', edit_admin_entry_path(entry) %></td>
     <td><%= link_to 'Destroy', [:admin, entry], method: :delete, data: { confirm: 'Are you sure?' } %></td>

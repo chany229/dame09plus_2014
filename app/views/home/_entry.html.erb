@@ -20,11 +20,7 @@
 		<% end %>
 		<div class="right">
 			<% entry.tags.each do |tag| %>
-			<% if remote? %>
-			<%= link_to tag, tag_path(tag), :remote => true %>
-			<% else %>
 			<%= link_to tag, "#/logs/tag/#{tag}" %>
-			<% end %>
 			<% end %> |
 			<%= entry.created_at.to_s %> |
 			<%= link_to "评论(#{entry.comments.count})", "javascript:void(0);", :onclick => "$('#comments_of_e#{entry.id}').slideToggle();" %>
@@ -33,10 +29,10 @@
 	</div>
 	<div id="comments_of_e<%= entry.id %>" class="comments">
 		<%= render "home/comment_form", :entry => entry %>
-		<table>
-			<% entry.comments.each do |comment| %>
+		<div id="commentslist_of_e<%= entry.id %>">
+			<% entry.comments.desc(:created_at).each do |comment| %>
 			<%= render "home/comment", :comment => comment %>
 			<% end %>
-		</table>
+		</div>
 	</div>
 </div>

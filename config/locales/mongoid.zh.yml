@@ -9,3 +9,6 @@ zh:
           attributes:
             username:
               taken: 该昵称已被注册
+            current_password:
+              blank: 请填写当前密码
+              invalid: 当前密码错误，请重新输入

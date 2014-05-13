@@ -1,0 +1,53 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag    "jquery.Jcrop" %>
+<%= javascript_include_tag "jquery.Jcrop" %>
+<% end %>
+<img src="<%= @user.avatar %>" id="jcrop_target" width="250px">
+<div style="width:100px;height:100px;overflow:hidden;">
+    <img src="<%= @user.avatar %>" id="crop_preview" width="100px" height="100px">
+</div>
+<a onclick="$('#crop_avatar_form').submit()">确认</a>
+<%= form_tag(crop_avatar_path, :style => "display:none", :id => "crop_avatar_form") do %>
+<%= hidden_field_tag :x %>
+<%= hidden_field_tag :y %>
+<%= hidden_field_tag :width %>
+<%= hidden_field_tag :height %>
+<% end %>
+<script type="text/javascript">
+var img = $('#jcrop_target');
+var theImage = new Image();
+theImage.src = img.attr("src");
+var ori_width = theImage.width;
+var ori_height = theImage.height;
+var img_height = img.height();
+var img_width = img.width();
+console.log("ori:" + ori_width);
+console.log("img:" + img_width);
+$(function(){
+    $('#jcrop_target').Jcrop({
+        onChange: showPreview,
+        onSelect: showPreview,
+        aspectRatio: 1
+    });
+
+});
+function showPreview(coords)
+{
+    console.log(coords);
+    var rx = 100 / coords.w;
+    var ry = 100 / coords.h;
+
+    $('#crop_preview').css({
+        width: Math.round(rx * img_width) + 'px',
+        height: Math.round(ry * img_height) + 'px',
+        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    });
+
+
+    $("#x").val(coords.x)
+    $("#y").val(coords.y)
+    $("#width").val(coords.x2 - coords.x)
+    $("#height").val(coords.y2 - coords.y)
+}
+</script>

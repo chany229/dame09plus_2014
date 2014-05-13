@@ -1,0 +1,7 @@
+<span class="next">
+<% if @page_hash %>
+  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, "#{@page_hash}/p#{current_page + 1}", :rel => 'next', :remote => remote %>
+<% else %>
+  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, :rel => 'next', :remote => remote %>
+<% end %>
+</span>

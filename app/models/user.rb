@@ -4,6 +4,7 @@ class User
   include Mongoid::Timestamps
 
   #rolify
+  #attr_accessor :from
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -60,8 +61,9 @@ class User
 
   include Mongoid::Document::Roleable
 
+  mount_uploader :avatar, AvatarUploader
 
-
+  has_many :comments, :class_name => "NewComment"
   # fields ^
 
   def self.find_for_database_authentication(warden_conditions)

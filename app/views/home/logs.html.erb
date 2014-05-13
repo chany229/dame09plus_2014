@@ -17,11 +17,7 @@
 	<div id="tags" class="block">
 		<% @tags.each do |tag| %>
 		<span style="font-size: <%= tag[:count]/10.0 + 0.7 %>em;">
-			<% if remote? %>
-			<%= link_to tag[:name], tag_path(tag[:name]), :remote => true %>(<%= tag[:count] %>)
-			<% else %>
 			<%= link_to tag[:name], "#/logs/tag/#{tag[:name]}" %>(<%= tag[:count] %>)
-			<% end %>
 		</span>
 		<% end %>
 	</div>
@@ -33,10 +29,4 @@
 	//$('.colorpicker').colorpicker();
 })(jQuery)
 init_zoom_image();
-$('body').keypress(function(e){
-	var actdiv = $(':focus');
-	if(e.ctrlKey && e.which == 13 || e.which == 10) {
-		actdiv.parents("form").submit();
-	}
-});
 </script>

@@ -1,15 +1,28 @@
-<tr>
-	<td width="50px">
+<div class="comment" id="c<%= comment.id %>_of_e<%= comment.commentable.id %>">
+	<div class="left">
 		<% if comment.user %>
-		<%= comment.user.username %>：
+		<%= link_to image_tag(comment.user.avatar.url(:mini)), user_path(comment.user.username) %>
 		<% else %>
-		<%= comment.username %>：
+		<%= image_tag "mini_default_avatar.png" %>
 		<% end %>
-	</td>
-	<td width="290px">
-		<%= comment.body %>
-	</td>
-	<td width="100px">
-		<%= comment.created_at.to_s %>
-	</td>
-</tr>
+	</div>
+	<div class="left comment_content">
+		<div class="comment_username">
+			<% if comment.user %>
+			<%= link_to comment.user.username, user_path(comment.user.username) %>：
+			<% else %>
+			<%= comment.username %>：
+			<% end %>
+		</div>
+		<div class="comment_datetime">
+			<%= comment.created_at.to_s %>
+			<% if current_user && (current_user.has_role?(:admin) || comment.user == current_user) %>
+			<%= link_to 'x', remove_comment_path(comment.commentable.id, comment.id, 'js'), :remote => true, :confirm => "真的要删吗=口=！？" %>
+			<% end %>
+		</div>
+		<div class="comment_body">
+			<%= comment.body %>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

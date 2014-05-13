@@ -6,6 +6,17 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= yield :head %>
+  <!--[if lt IE 7]>
+  <script src="/assets/IE7.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 8]>
+  <script src="/assets/IE8.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 8]>
+  <script src="/assets/IE9.js"></script>
+  <![endif]-->
 </head>
 <body>
   <% if notice %><p class="notice"><%= notice %></p><% end %>
@@ -14,7 +25,7 @@
     <%= link_to "马太目欢乐颂+", root_path %>
     <div id="login_link">
       <% if current_user %>
-      <%= link_to current_user.username, edit_registration_path(:user) %>
+      <%= link_to current_user.username, user_path(current_user.username) %>
       <%= link_to('管理界面', admin_entries_path) if current_user.has_role?(:admin) %>
       <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
       <% else %>
@@ -25,7 +36,7 @@
   </header>
   <div id="container">
     <div id="side" ng-controller="SideCtrl">
-      <a href="#/profile" title="关于六十"><img id="face" src="/assets/face0.png" alt="六十"></a>
+      <%= image_tag "me.jpg", :id => "face", :alt => "六十", :width => 200, :height => 200 %>
       <ul id="menu">
         <% if remote? %>
         <%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), top_path %>
@@ -47,5 +58,9 @@
   <div id="footer-wrapper">
     <footer>Powered by Ruby on Rails</footer>
   </div>
+  <script type="text/javascript">
+  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F47b86a03ed7b7f70e6d6112987cd3543' type='text/javascript'%3E%3C/script%3E"));
+  </script>
 </body>
 </html>

@@ -12,15 +12,22 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require jquery.ui.all
+//= require jquery.remotipart
 //= require twitter/bootstrap
 //= require angular
-// require evol.colorpicker
 //= require_tree .
+$(function(){
+	$('body').keypress(function(e){
+		var actdiv = $(':focus');
+		if(e.ctrlKey && e.which == 13 || e.which == 10) {
+			actdiv.parents("form").submit();
+		}
+	});	
+})
 
 function setHash(a) {
 	location.hash = a;
-	//$.browser.msie ? $.locationHash(a) : location.hash = a;
+//$.browser.msie ? $.locationHash(a) : location.hash = a;
 }
 
 var mini_to_thumb_re = new RegExp("mini","g");
@@ -40,9 +47,9 @@ function init_zoom_image() {
 		}
 		console.log("new_src:"+new_src)
 		if (new_src.length > 0) {
-			//$(this).fadeOut("slow",function(){
-				$(this).attr("src",new_src);
-			//}).fadeIn("slow");
-		}
-	});
+//$(this).fadeOut("slow",function(){
+	$(this).attr("src",new_src);
+//}).fadeIn("slow");
+}
+});
 };

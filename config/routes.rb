@@ -1,7 +1,16 @@
 Dame09plus::Application.routes.draw do
+	resources :entries do
+		resources :comments
+	end
+	post 'user/:username/crop_avatar' => 'users#crop_avatar', :as => 'crop_avatar'
+	get 'user/:username/avatar' => 'users#avatar', :as => 'user_avatar'
+	get 'user/:username' => 'users#show', :as => 'user'
+
 	post 'create_comment(.:format)' => 'home#create_comment', :as => :create_comment
+	match 'remove_comment/:entry_id/:comment_id(.:format)' => 'home#remove_comment', :as => :remove_comment
 	namespace :admin do
 		resources :entries
+		resources :accounts
 	end
 	match 'logs/tag/:tag_name(/p:page)(.:format)' => 'home#tag', :as => :tag
 	match 'logs/tags/:type/:tags(/p:page)(.:format)' => 'home#tags', :as => :tags

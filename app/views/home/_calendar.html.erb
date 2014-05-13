@@ -4,13 +4,8 @@
       <%= link_to '<<', calendar_path(date.prev_month.to_i), :remote => true %>
     </td>
     <td>
-      <% if remote? %>
-      <%= link_to "#{date.year}年", year_path(date.year), :remote => true %>
-      <%= link_to_unless events.empty?, "#{date.month}月", month_path(date.year,date.month), :remote => true %>
-      <% else %>
       <%= link_to "#{date.year}年", "#/logs/#{date.year}" %>
       <%= link_to_unless events.empty?, "#{date.month}月", "#/logs/#{date.year}-#{date.month}" %>
-      <% end %>
     </td>
     <td>
       <%= link_to '>>', calendar_path(date.next_month.to_i), :remote => true %>
@@ -42,13 +37,9 @@
       <% else %>
         <td>
       <% end %>
-      <% if remote? %>
-      <%= link_to_if events.include?(day), day, day_path(date.year,date.month,day), :remote => remote? %>
-      <% else %>
       <%= link_to_if events.include?(day), day, "#/logs/#{date.year}-#{date.month}-#{day}" %>
-      <% end %>
       </td>
-      <% if Time.new(date.year,date.month,day).wday == 6%>
+      <% if Time.new(date.year,date.month,day).wday == 6 %>
         </tr>
         <tr>
       <% end %>

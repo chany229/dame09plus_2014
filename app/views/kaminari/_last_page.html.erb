@@ -1,0 +1,7 @@
+<span class="last">
+<% if @page_hash %>
+<%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, "#{@page_hash}/p#{total_pages}", :remote => remote %>
+<% else %>
+<%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, :remote => remote %>
+<% end %>
+</span>

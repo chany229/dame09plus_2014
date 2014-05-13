@@ -1,17 +1,32 @@
 <h2><%= t "edit_account" %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<a onclick="$('#edit_account_form').show();$('#edit_password_form').hide();$('.error_explanation').each(function(){$(this).remove()});">编辑账号</a>
+<a onclick="$('#edit_account_form').hide();$('#edit_password_form').show();$('.error_explanation').each(function(){$(this).remove()});">修改密码</a>
 
-  <div><%= f.email_field :email, :placeholder => "请输入#{t "email"}" %></div>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => 'edit_account_form', :style => (['account', nil, ''].include?(params[:from]) ? '' : 'display: none;'), :method => :put }) do |f| %>
+<%= devise_error_messages! %>
+<%= hidden_field_tag :from, "account" %>
 
-  <div><%= f.text_field :username, :placeholder => "请输入#{t "username"}" %></div>
+<div><%= f.email_field :email, :placeholder => "请输入#{t "email"}" %></div>
 
-  <div><%= f.password_field :password, :placeholder => "请输入#{t "password"}" %></div>
+<div><%= f.text_field :username, :placeholder => "请输入#{t "username"}" %></div>
 
-  <div><%= f.password_field :password_confirmation, :placeholder => "请再次输入#{t "password"}" %></div>
+<div><%= f.password_field :current_password, :placeholder => "请输入#{t "current_password"}进行确认"%></div>
 
-  <div><%= f.submit t("confirm"), :class => 'btn' %></div>
+<div><%= f.submit t("confirm"), :class => 'btn' %></div>
+<% end %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => 'edit_password_form', :style => (params[:from] == 'password' ? '' : 'display: none;'), :method => :put }) do |f| %>
+<%= devise_error_messages! %>
+<%= hidden_field_tag :from, "password" %>
+
+<div><%= f.password_field :current_password, :placeholder => "请输入#{t "current_password"}进行确认"%></div>
+
+<div><%= f.password_field :password, :placeholder => "请输入新#{t "password"}" %></div>
+
+<div><%= f.password_field :password_confirmation, :placeholder => "请再次输入新#{t "password"}" %></div>
+
+<div><%= f.submit t("confirm"), :class => 'btn' %></div>
 <% end %>
 
 <h3>删除账号</h3>
