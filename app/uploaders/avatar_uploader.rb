@@ -1,7 +1,7 @@
 # encoding: utf-8
-
+require "digest/md5"
 class AvatarUploader < CarrierWave::Uploader::Base
-  include CarrierWave::Meta
+  #include CarrierWave::Meta
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -39,10 +39,12 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   process :scale => [50, 50]
   # end
   version :crop do
-    process :crop_to => [200, 200]
+    process :crop
+    resize_to_fill(200, 200)
   end
   version :mini do
-    process :crop_to => [32, 32]
+    process :crop
+    resize_to_fill(32, 32)
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -54,62 +56,20 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "dame09plus-#{mounted_as}-#{model.id}.#{file.extension}" if original_filename
+    @name ||= Digest::MD5.hexdigest(current_path)
+    "#{mounted_as}_#{@name}.#{file.extension}" if original_filename
   end
 
-
-  
-  model_delegate_attribute :x
-  model_delegate_attribute :y
-  model_delegate_attribute :w
-  model_delegate_attribute :h
-
-  # Crop processor
-  def crop_to(width, height)
-    # Checks that crop area is defined and crop should be done.
-    if ((crop_args[0] == crop_args[2]) || (crop_args[1] == crop_args[3]))
-      # If not creates default image and saves it's dimensions.
-      resize_to_fill_and_save_dimensions(width, height)
-    else
-      args = crop_args + [width, height]
-      crop_and_resize(*args)
+  def crop
+    if model.crop_x.present?
+      resize_to_limit(250, 250)
+      manipulate! do |img|
+        x = model.crop_x.to_i
+        y = model.crop_y.to_i
+        w = model.crop_w.to_i
+        h = model.crop_h.to_i
+        img.crop!(x, y, w, h)
+      end
     end
-  end
-
-  def crop_and_resize(x, y, width, height, new_width, new_height)
-    manipulate! do |img|
-      cropped_img = img.crop(x, y, width, height)
-      new_img = cropped_img.resize_to_fill(new_width, new_height)
-      destroy_image(cropped_img)
-      destroy_image(img)      
-      new_img
-    end
-  end
-
-  # Creates the default crop image.
-  # Here the original crop area dimensions are restored and assigned to the model's instance.  
-  def resize_to_fill_and_save_dimensions(new_width, new_height)
-    manipulate! do |img|
-      width, height = img.columns, img.rows
-      new_img = img.resize_to_fill(new_width, new_height)
-      destroy_image(img)
-
-      w_ratio = width.to_f / new_width.to_f
-      h_ratio = height.to_f / new_height.to_f
-
-      ratio = [w_ratio, h_ratio].min
-
-      self.w = ratio * new_width
-      self.h = ratio * new_height
-      self.x = (width - self.w) / 2
-      self.y = (height - self.h) / 2
-
-      new_img
-    end
-  end
-
-  private
-  def crop_args
-    %w(x y w h).map { |accessor| send(accessor).to_i }
   end
 end

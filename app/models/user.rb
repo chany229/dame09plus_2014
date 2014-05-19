@@ -50,7 +50,7 @@ class User
   index({ email: 1 }, { unique: true, background: true })
   field :username, :type => String
   validates :username, :uniqueness => { :case_sensitive => false }, :presence => true
-  attr_accessor :login
+  attr_accessor :login, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 
   #has_many :comments, :validate => false
@@ -66,6 +66,7 @@ class User
   has_many :comments, :class_name => "NewComment"
   # fields ^
 
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login).downcase
@@ -78,5 +79,9 @@ class User
   before_create :init_roles
   def init_roles
     self.roles = []
+  end
+  after_update :crop_avatar
+  def crop_avatar
+    avatar.recreate_versions! if crop_x.present?
   end
 end

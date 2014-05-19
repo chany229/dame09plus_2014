@@ -2,8 +2,9 @@ Dame09plus::Application.routes.draw do
 	resources :entries do
 		resources :comments
 	end
-	post 'user/:username/crop_avatar' => 'users#crop_avatar', :as => 'crop_avatar'
-	get 'user/:username/avatar' => 'users#avatar', :as => 'user_avatar'
+	post 'user/upload_avatar' => 'users#upload_avatar', :as => 'upload_avatar'
+	post 'user/crop_avatar' => 'users#crop_avatar', :as => 'crop_avatar'
+	get 'user/avatar' => 'users#avatar', :as => 'user_avatar'
 	get 'user/:username' => 'users#show', :as => 'user'
 
 	post 'create_comment(.:format)' => 'home#create_comment', :as => :create_comment

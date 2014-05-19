@@ -1,5 +1,5 @@
 # encoding: utf-8
-
+require "digest/md5"
 class ImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
@@ -48,7 +48,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "dame09plus-#{mounted_as}-#{model.id}.#{file.extension}" if original_filename
+    @name ||= Digest::MD5.hexdigest(current_path)
+    "#{mounted_as}_#{@name}.#{file.extension}" if original_filename
   end
 
 end

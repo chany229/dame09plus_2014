@@ -1,0 +1,5 @@
+<h2>上传头像</h2>
+<%= form_tag upload_avatar_path, :multipart => true do %>
+<%= file_field_tag :avatar %>
+<%= submit_tag "上传" %>
+<% end %>

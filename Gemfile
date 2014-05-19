@@ -65,3 +65,5 @@ gem 'pie-rails'
 gem 'remotipart', '~> 1.2' #remote方式上传文件
 
 #gem 'mongoid_auto_increment_id', "0.6.1"
+
+gem "mongo_session_store-rails3"

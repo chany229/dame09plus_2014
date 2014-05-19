@@ -149,6 +149,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25)
     mini_portile (0.5.1)
+    mongo_session_store-rails3 (5.0.1)
+      actionpack (>= 3.1)
     mongoid (3.0.23)
       activemodel (~> 3.1)
       moped (~> 1.2)
@@ -297,6 +299,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  mongo_session_store-rails3
   mongoid
   mongoid-rspec
   mongoid-simple-roles (= 0.0.1)

@@ -4,13 +4,12 @@
 <p>
 <%= link_to "编辑账户", edit_registration_path(:user) %>
 <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
-上传头像
+<%= link_to '上传头像', user_avatar_path %>
 </p>
 <% end %>
 <p>
 注册日期：<%= @user.created_at.to_s %><br/>
 上次登录：<%= @user.current_sign_in_at.try(:to_s) %><br/>
-登陆IP：<%= @user.current_sign_in_ip %><br/>
 评论数：<%= @user.comments.count %>
 </p>
 <marquee id="anchor_notice" align="middle" scrollamount="2" style="left: 0px; width: 480px;">

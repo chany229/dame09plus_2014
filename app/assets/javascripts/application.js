@@ -15,7 +15,10 @@
 //= require jquery.remotipart
 //= require twitter/bootstrap
 //= require angular
-//= require_tree .
+//= require my_angular
+//= require highlight
+//= require jquery.validate
+// require_tree .
 $(function(){
 	$('body').keypress(function(e){
 		var actdiv = $(':focus');
