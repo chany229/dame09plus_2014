@@ -1,4 +1,4 @@
-<table style="width: 200px;text-align: center;">
+<table class="calendar_title">
   <tr>
     <td>
       <%= link_to '<<', calendar_path(date.prev_month.to_i), :remote => true %>
@@ -13,15 +13,15 @@
   </tr>
 </table>
 <hr/>
-<table style="width: 200px;text-align: center;">
+<table class="calendar">
   <tr>
-    <th>日</th>
+    <th class="sun">日</th>
     <th>一</th>
     <th>二</th>
     <th>三</th>
     <th>四</th>
     <th>五</th>
-    <th>六</th>
+    <th class="sat">六</th>
   </tr>
   <tr>
     <% for i in 0..6 %>
@@ -31,9 +31,9 @@
     <% end %>
     <% for day in 1..Time.days_in_month(date.month,date.year) %>
       <% if Time.new(date.year,date.month,day).wday == 0 %>
-        <td>
+        <td class="sun">
       <% elsif Time.new(date.year,date.month,day).wday == 6 %>
-        <td>
+        <td class="sat">
       <% else %>
         <td>
       <% end %>

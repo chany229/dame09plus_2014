@@ -1,10 +1,12 @@
 # encoding: utf-8
+require 'rqrcode'
 class HomeController < ApplicationController
 	#before_filter :authenticate_user!, :except => [:index]
 	before_filter :check_from_angular, :except => [:index, :frame, :calendar]
 	layout :get_layout
 
 	def index
+		@qr = RQRCode::QRCode.new('http://dame09.com')
 		render :layout => false
 	end
 
@@ -18,7 +20,7 @@ class HomeController < ApplicationController
 			session[:type] = cookies[:type] = "angular"
 		end
 =end
-		render :layout => "yamato_raven"
+		#render :layout => "yamato_raven"
 	end
 
 	def top
@@ -203,7 +205,7 @@ class HomeController < ApplicationController
 		if params[:from_angular]
 			return false
 		else
-			return "yamato_raven"
+			return params[:skin] || session[:skin] || "flowers" || "yamato_raven"
 		end
 	end
 

@@ -14,28 +14,22 @@ class UsersController < ApplicationController
     end
 
     def upload_avatar
-        @user.avatar = File.new(params[:avatar][:path])
+        @user.path = params[:avatar]
         @user.save
 
-        #render "crop_avatar"
-        redirect_to :action => :show, :id => @user.id
+        render "crop_avatar"
+        #redirect_to :action => :show, :id => @user.username
     end
 
     def crop_avatar
-        @user.crop_x = params[:x]
-        @user.crop_y = params[:y]
-        @user.crop_w = params[:width]
-        @user.crop_h = params[:height]
-
-        @user.save
-
+        @user.update_attributes(params[:user])
         redirect_to :action => :avatar
     end
 
     private
 
     def get_user
-        @user = User.where(:username => params[:username]).first
+        @user = User.where(:username => params[:id]).first
     end
 
     def get_current_user

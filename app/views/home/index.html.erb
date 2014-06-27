@@ -2,8 +2,10 @@
 <html>
 <head>
 	<title>马太目欢乐颂+</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-	<meta property="wb:webmaster" content="45171f046bcdc005" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10, user-scalable=no" />
+	<!--meta property="wb:webmaster" content="45171f046bcdc005" /-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8; text/x-component;" />
 	<style type="text/css">
 	html {
 		margin: 0 auto;
@@ -17,29 +19,41 @@
 		height: 100%;
 		font-size: 12px;
 		font-family: 'microsoft yahei';
+		color: #900;
 	}
 	span {
-		color: red;
+		color: #f36;
 		display: inline;
 	}
 	a {
-		color: black;
+		color: #f03;
 		text-decoration: none;
 	}
 	#main {
 		margin: 0 auto;
-		width: 290px;
+		width: 320px;
 		height: 100%;
 		/*vertical-align: middle;
 		padding-top: 160px;*/
+		/*
 		border-image: url(/assets/border3.png) 0 15 0 15   /0 15px repeat repeat;
 		-moz-border-image: url(/assets/border3.png) 0 15 0 15   /0 15px repeat repeat;
 		-o-border-image: url(/assets/border3.png) 0 15 0 15   /0 15px repeat repeat;
 		-webkit-border-image: url(/assets/border3.png) 0 15 0 15   /0 15px repeat repeat;
 		behavior: url(/PIE_1.0.0/PIE.htc);
+		*/
+	}
+	.border {
+		float: left;
+		height: 100%;
+		background-image: url(/assets/border1.png);
+		width: 15px;
+		margin: 0 5px; 
 	}
 	#content {
-		padding-top: 160px;
+		float: left;
+		width: 270px;
+		padding-top: 80px;
 	}
 	#notice {
 		/*font-size: 10px;*/
@@ -50,53 +64,96 @@
 		font-size: 10px;
 		padding-top: 20px;
 	}
+
+	.qr_code {
+		width: 165px;
+		margin: 30px auto 0;
+		padding-bottom: 30px;
+	}
+
+	table {
+		border-width: 0;
+		border-style: none;
+		border-color: #0000ff;
+		border-collapse: collapse;
+	}
+	td {
+		border-width: 0;
+		border-style: none;
+		border-color: #0000ff;
+		border-collapse: collapse;
+		padding: 0;
+		margin: 0;
+		width: 5px;
+		height: 5px;
+	}
+	td.black { background-color: #f36; }
+	td.white { background-color: #fff; }
 	</style>
 	<%= javascript_include_tag "application" %>
-    	<!--[if lt IE 7]>
-		<script src="/assets/IE7.js"></script>
-		<![endif]-->
+	<!--[if lt IE 7]>
+	<script src="/assets/IE7.js"></script>
+	<![endif]-->
 
-		<!--[if lt IE 8]>
-		<script src="/assets/IE8.js"></script>
-		<![endif]-->
+	<!--[if lt IE 8]>
+	<script src="/assets/IE8.js"></script>
+	<![endif]-->
 
-		<!--[if lt IE 8]>
-		<script src="/assets/IE9.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-		<div id="main">
-			<div id="content">
-				<%= image_tag("banner.png") %>
+	<!--[if lt IE 8]>
+	<script src="/assets/IE9.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div id="main">
+		<div class="border"></div>
+		<div id="content">
+			<%= image_tag("banner.png") %>
+			<br/>
+			一个个人日记站=L=
+			<br/>
+			对<span>二次元</span>、<span>再创作</span>等词汇不明或反感者请<span>全速脱出</span>
+			<div id="notice">
+				本站内容与原作者、制作公司、历史人物等无关
 				<br/>
-				一个个人日记站=L=
-				<br/>
-				对<span>二次元</span>、<span>再创作</span>等词汇不明或反感者请<span>全速脱出</span>
-				<div id="notice">
-					本站内容与原作者、制作公司、历史人物等无关
-					<br/>
-					特此声明
-				</div>
-				<div class="links">
-					<%#= link_to "Jquery版入口", frame_path(:type => :jquery) %>
-					<%= link_to "ENTER", frame_path %>
-					<div><span>推荐使用Chrome浏览器=L=</span></div>
-				</div>
-				<div class="links">
-					<% if current_user %>
-					<%= link_to current_user.username, edit_registration_path(:user) %>
-					<%= link_to('管理界面', admin_entries_path) if current_user.has_role?(:admin) %>
-					<%= link_to '注销', destroy_session_path(:user), :method => :delete %>
-					<% else %>
-					<%= link_to '登录', new_session_path(:user) %>
-					<%= link_to '注册', new_registration_path(:user) %>
-					<% end %>
-				</div>
+				特此声明
+			</div>
+			<div class="links">
+				<%= link_to "新皮肤入口", frame_path(:skin => "flowers") %>
+				<%= link_to "老皮肤入口", frame_path(:skin => "yamato_raven") %>
+				<div>暂时不支持IE浏览器=L=</div>
+			</div>
+			<div class="links">
+				<% if current_user %>
+				<%= link_to current_user.username, edit_registration_path(:user) %>
+				<%= link_to('管理界面', admin_entries_path) if current_user.has_role?(:admin) %>
+				<%= link_to '注销', destroy_session_path(:user), :method => :delete %>
+				<% else %>
+				<%= link_to '登录', new_session_path(:user) %>
+				<%= link_to '注册', new_registration_path(:user) %>
+				<% end %>
+			</div>
+			<div class="qr_code">
+				<table>
+					<% @qr.modules.each_index do |x| -%>
+					<tr>
+						<% @qr.modules.each_index do |y| -%>
+						<% if @qr.dark?(x,y) -%>
+						<td class="black"/>
+						<% else -%>
+						<td class="white"/>
+						<% end -%>
+						<% end -%>
+					</tr>
+					<% end -%>
+				</table>
+				<div>↑ 手机访问二维码 ↑</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-		document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F47b86a03ed7b7f70e6d6112987cd3543' type='text/javascript'%3E%3C/script%3E"));
-		</script>
-	</body>
-	</html>
+		<div class="border"></div>
+	</div>
+	<script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F47b86a03ed7b7f70e6d6112987cd3543' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+</body>
+</html>

@@ -3,3 +3,5 @@
 <%= file_field_tag :avatar %>
 <%= submit_tag "上传" %>
 <% end %>
+<h6>当前头像</h6>
+<%= image_tag @user.avatar.url(:crop) %>

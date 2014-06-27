@@ -3,7 +3,7 @@ Dame09plus::Application.routes.draw do
 		resources :comments
 	end
 	post 'user/upload_avatar' => 'users#upload_avatar', :as => 'upload_avatar'
-	post 'user/crop_avatar' => 'users#crop_avatar', :as => 'crop_avatar'
+	put 'user/avatar/crop' => 'users#crop_avatar', :as => 'crop_avatar'
 	get 'user/avatar' => 'users#avatar', :as => 'user_avatar'
 	get 'user/:username' => 'users#show', :as => 'user'
 

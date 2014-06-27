@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="my_routes">
+<head>
+  <title>马太目欢乐颂+</title>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8; text/x-component;" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10, user-scalable=no">
+
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <%= stylesheet_link_tag "flowers", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <%= csrf_meta_tags %>
+  <%= yield :head %>
+  <!--[if lt IE 7]>
+  <script src="/assets/IE7.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 8]>
+  <script src="/assets/IE8.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 8]>
+  <script src="/assets/IE9.js"></script>
+  <![endif]-->
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+  <![endif]-->
+</head>
+<body>
+  <div id="container">
+    <% if notice %><p class="notice"><%= notice %></p><% end %>
+    <% if alert %><p class="alert"><%= alert %></p><% end %>
+    <header>
+      <%= link_to "马太目欢乐颂+", root_path %>
+      <div id="login_link">
+        <% if current_user %>
+        <%= link_to current_user.username, edit_registration_path(:user) %>
+        <%= link_to('管理界面', admin_path) if current_user.has_role?("admin") %>
+        <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
+        <% else %>
+        <%= link_to '登录', new_session_path(:user) %>
+        <%= link_to '注册', new_registration_path(:user) %>
+        <% end %>
+      </div>
+    </header>
+
+    <div id="side" ng-controller="SideCtrl">
+      <a href="#/profile" title="关于六十"><img id="face" src="/assets/me.jpg" alt="六十"></a>
+
+      <ul id="menu">
+        <%= link_to raw("<li ng-class=\"sideLiClass('top')\">TOP</li>"), "#/top" %>
+        <%= link_to raw("<li ng-class=\"sideLiClass('logs')\">LOGs</li>"), "#/logs" %>
+      </ul>
+
+      <div id="music_player">
+        <embed src="http://www.xiami.com/widget/4409085_1770804402,1769911898,_200_200_000000_000000_0/multiPlayer.swf" type="application/x-shockwave-flash" width="200" height="200" wmode="opaque"></embed>
+      </div>
+    </div>
+    <div id="content">
+      <%= bootstrap_flash %>
+      <%= yield %>
+    </div>
+
+    <footer>
+      <p>&copy; 六十 2013-2014</p>
+    </footer>
+  </div>
+
+  <script type="text/javascript">
+  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F47b86a03ed7b7f70e6d6112987cd3543' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+</body>
+</html>

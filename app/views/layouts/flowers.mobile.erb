@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>马太目欢乐颂+</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8; text/x-component;" />
+    <%= javascript_include_tag "mobile" %>
+    <%= stylesheet_link_tag "mobile", :media => "all" %>
+    <!--[if lt IE 7]>
+    <script src="/assets/IE7.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 8]>
+    <script src="/assets/IE8.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 8]>
+    <script src="/assets/IE9.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="content">
+        <%= yield %>
+    </div>
+    <script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F47b86a03ed7b7f70e6d6112987cd3543' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</body>
+</html>

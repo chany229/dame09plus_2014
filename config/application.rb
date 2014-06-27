@@ -76,6 +76,7 @@ module Dame09plus
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    config.assets.logger = nil
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
@@ -94,5 +95,8 @@ module Dame09plus
         false
       end
     end
+
+
+    config.logger = Logger.new("#{Rails.root.to_s}/log/#{Rails.env}.log", 'daily')
   end
 end

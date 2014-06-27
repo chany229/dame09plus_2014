@@ -3,8 +3,8 @@ require "digest/md5"
 class ImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  # include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -33,7 +33,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_limit => [450, 0]
+    process :resize_to_limit => [450, -1]
   end
 
   version :mini do
@@ -48,8 +48,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    @name ||= Digest::MD5.hexdigest(current_path)
-    "#{mounted_as}_#{@name}.#{file.extension}" if original_filename
+    "#{model.id}.#{file.extension}" if original_filename
   end
 
 end

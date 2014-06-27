@@ -20,7 +20,7 @@ class Entry
   before_save :gsub_long
   def split_tags
     old_tags = self.tag_list
-    new_tags = old_tags.split(" ").join(",").split("|").join(",")
+    new_tags = old_tags.split(/\s|,|\|/).join(",")
     self.tag_list = new_tags
   end
   def gsub_long

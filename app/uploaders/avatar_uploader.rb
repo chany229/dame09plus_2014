@@ -3,8 +3,8 @@ require "digest/md5"
 class AvatarUploader < CarrierWave::Uploader::Base
   #include CarrierWave::Meta
   # Include RMagick or MiniMagick support:
-  include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  # include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -38,6 +38,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # version :thumb do
   #   process :scale => [50, 50]
   # end
+
+  version :large do
+    resize_to_limit(250, 250)
+  end
   version :crop do
     process :crop
     resize_to_fill(200, 200)
@@ -49,26 +53,26 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_white_list
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    @name ||= Digest::MD5.hexdigest(current_path)
-    "#{mounted_as}_#{@name}.#{file.extension}" if original_filename
+    "#{model.username}.#{file.extension}" if original_filename
   end
 
   def crop
-    if model.crop_x.present?
+    if model.crop_x
       resize_to_limit(250, 250)
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i
         w = model.crop_w.to_i
         h = model.crop_h.to_i
-        img.crop!(x, y, w, h)
+        img.crop "#{model.crop_w}x#{model.crop_h}+#{model.crop_x}+#{model.crop_y}"
+        img
       end
     end
   end

@@ -52,9 +52,13 @@ gem 'rolify'
 #gem 'sunspot_solr'#bundle exec rake sunspot:solr:start
 #gem 'sunspot_mongoid'
 gem "mongoid-simple-roles", "0.0.1"
+
+#图片处理
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-gem 'carrierwave-meta'
-gem 'rmagick'
+#gem 'carrierwave-meta'
+#gem 'rmagick'
+gem 'mini_magick'
+gem 'jcrop-rails-v2'
 
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap_helper'
@@ -67,3 +71,5 @@ gem 'remotipart', '~> 1.2' #remote方式上传文件
 #gem 'mongoid_auto_increment_id', "0.6.1"
 
 gem "mongo_session_store-rails3"
+
+gem "rqrcode"

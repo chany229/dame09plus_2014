@@ -2,16 +2,15 @@
 <%= stylesheet_link_tag    "jquery.Jcrop" %>
 <%= javascript_include_tag "jquery.Jcrop" %>
 <% end %>
-<img src="<%= @user.avatar %>" id="jcrop_target" width="250px">
+<img src="<%= @user.avatar.url(:large) %>" id="jcrop_target">
 <div style="width:100px;height:100px;overflow:hidden;">
-    <img src="<%= @user.avatar %>" id="crop_preview" width="100px" height="100px">
+    <img src="<%= @user.avatar.url(:large) %>" id="crop_preview" width="100px" height="100px">
 </div>
 <a onclick="$('#crop_avatar_form').submit()">确认</a>
-<%= form_tag(crop_avatar_path, :style => "display:none", :id => "crop_avatar_form") do %>
-<%= hidden_field_tag :x %>
-<%= hidden_field_tag :y %>
-<%= hidden_field_tag :width %>
-<%= hidden_field_tag :height %>
+<%= form_for @user, :url => crop_avatar_path, :html => {:style => "display:none", :id => "crop_avatar_form"} do |f| %>
+  <% %w[x y w h].each do |attribute| %>
+    <%= f.hidden_field "crop_#{attribute}" %>
+  <% end %>
 <% end %>
 <script type="text/javascript">
 var img = $('#jcrop_target');
@@ -27,6 +26,7 @@ $(function(){
     $('#jcrop_target').Jcrop({
         onChange: showPreview,
         onSelect: showPreview,
+        setSelect: [0, 0, 250, 250],
         aspectRatio: 1
     });
 
@@ -38,16 +38,16 @@ function showPreview(coords)
     var ry = 100 / coords.h;
 
     $('#crop_preview').css({
-        width: Math.round(rx * img_width) + 'px',
-        height: Math.round(ry * img_height) + 'px',
-        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        width: Math.round(100/coords.w * $('#jcrop_target').width()) + 'px',
+        height: Math.round(100/coords.h * $('#jcrop_target').height()) + 'px',
+        marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px',
+        marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
     });
 
 
-    $("#x").val(coords.x)
-    $("#y").val(coords.y)
-    $("#width").val(coords.x2 - coords.x)
-    $("#height").val(coords.y2 - coords.y)
+    $('#user_crop_x').val(coords.x)
+    $('#user_crop_y').val(coords.y)
+    $('#user_crop_w').val(coords.w)
+    $('#user_crop_h').val(coords.h)
 }
 </script>

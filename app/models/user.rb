@@ -18,7 +18,7 @@ class User
 
   validates_presence_of :email
   validates_presence_of :encrypted_password
-  
+
   ## Recoverable
   field :reset_password_token,   :type => String
   field :reset_password_sent_at, :type => Time
@@ -64,6 +64,13 @@ class User
   mount_uploader :avatar, AvatarUploader
 
   has_many :comments, :class_name => "NewComment"
+=begin
+  has_many :be_followed, :as => :followable, :class_name => "Followship"
+  has_many :followers, :through => :be_followed, :source => :user
+  has_many :followship
+  has_many :followed_demos, :through => :followship, :source => :followable, :source_type => 'Demo'
+  has_many :followed_users, :through => :followship, :source => :followable, :source_type => 'User'
+=end
   # fields ^
 
 
@@ -82,6 +89,16 @@ class User
   end
   after_update :crop_avatar
   def crop_avatar
-    avatar.recreate_versions! if crop_x.present?
+    avatar.recreate_versions! if self.crop_x
+  end
+
+
+  def path=(value)
+    self.avatar = ActionDispatch::Http::UploadedFile.new({
+      :filename => value[:name],
+      :type => value[:content_type],
+      :head => nil,
+      :tempfile => File.open(value[:path])
+    })
   end
 end
