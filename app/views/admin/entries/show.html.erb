@@ -1,18 +1,36 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Short:</b>
+  <b>Short:</b><br/>
   <%= @entry.short %>
 </p>
 
 <p>
-  <b>Long:</b>
+  <b>Long:</b><br/>
   <%= @entry.long %>
 </p>
 
 <% if @entry.image_url %>
-<%= image_tag @entry.image_url(:mini) %>
+<p>
+    <%= image_tag @entry.image_url(:mini) %>
+</p>
 <% end %>
+
+<p>
+    <hr/>
+    <% @entry.comments.each do |comment| %>
+    <% if comment.user %>
+    <%= link_to comment.user.username, admin_user_path(comment.user) %>
+    <% else %>
+    <%= comment.username %>
+    <% end %>
+    ：<br/>
+    <%= comment.body %>
+    <br/>
+    <%= comment.created_at.to_s %>
+    <hr/>
+    <% end %>
+</p>
 
 <%= link_to 'Edit', edit_admin_entry_path(@entry) %> |
 <%= link_to 'Back', admin_entries_path %>

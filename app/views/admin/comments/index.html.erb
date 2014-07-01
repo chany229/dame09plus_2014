@@ -1,0 +1,42 @@
+<h1>Listing comments</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>用户</th>
+      <th>条目</th>
+      <th style="width:500px">内容</th>
+      <th>日期</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+    <tr>
+      <td>
+        <% if comment.user %>
+        <%= link_to comment.user.username, admin_user_path(comment.user) %>
+        <% else %>
+        <%= comment.username %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "查看", admin_entry_path(comment.commentable) %>
+      </td>
+      <td>
+        <%= comment.body %>
+      </td>
+      <td>
+        <%= comment.created_at.to_s %>
+      </td>
+      <td><%= link_to 'Edit', edit_admin_comment_path(comment) %></td>
+      <td><%= link_to 'Destroy', [:admin, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Message', new_admin_comment_path %>

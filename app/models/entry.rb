@@ -27,5 +27,5 @@ class Entry
     self.long = self.long.blank? ? "" : self.long.gsub(/\r\n/," \n").gsub(/ +/," ")
   end
 
-  has_many :comments, :class_name => "NewComment", :as => :commentable
+  has_many :comments, :as => :commentable
 end

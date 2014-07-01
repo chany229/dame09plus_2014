@@ -63,7 +63,8 @@ class User
 
   mount_uploader :avatar, AvatarUploader
 
-  has_many :comments, :class_name => "NewComment"
+  has_many :comments
+  #has_many :commented_entrys, :through => :comments, :source => :commentable, :source_type => "Entry"
 =begin
   has_many :be_followed, :as => :followable, :class_name => "Followship"
   has_many :followers, :through => :be_followed, :source => :user
@@ -101,4 +102,20 @@ class User
       :tempfile => File.open(value[:path])
     })
   end
+
+  def comments_by_commentable(type = Entry)
+    comments = self.comments.desc(:created_at)
+    commentables = comments.map { |c| if c.commentable.class == type then c.commentable else nil end }.compact.uniq
+    result = commentables.map do |commentable|
+      o = CommentsByCommentable.new
+      o.commentable = commentable
+      o.comments = comments.select { |c| c.commentable == commentable }
+      o
+    end
+    result
+  end
+end
+
+class CommentsByCommentable
+  attr_accessor :commentable, :comments
 end

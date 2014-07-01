@@ -15,7 +15,7 @@
     <% @entries.each do |entry| %>
     <tr>
       <td><%= entry.short %></td>
-      <td><%= entry.comments.count %></td>
+      <td><%= link_to entry.comments.count, admin_entry_comments_path(entry.id) %></td>
       <td><%= entry.comments.last.try(:created_at).try(:to_s) %></td>
       <td><%= link_to 'Show', [:admin, entry] %></td>
       <td><%= link_to 'Edit', edit_admin_entry_path(entry) %></td>

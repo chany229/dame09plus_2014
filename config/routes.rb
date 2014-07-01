@@ -1,7 +1,4 @@
 Dame09plus::Application.routes.draw do
-  resources :friends
-
-
 	resources :entries do
 		resources :comments
 	end
@@ -15,7 +12,10 @@ Dame09plus::Application.routes.draw do
 	namespace :admin do
 		resources :entries
 		resources :users
+		resources :comments
 	end
+	get "admin/comments/for_user/:username" => 'admin/comments#index', :as => 'admin_user_comments'
+	get "admin/comments/for_entry/:entry_id" => 'admin/comments#index', :as => 'admin_entry_comments'
 	match 'logs/tag/:tag_name(/p:page)(.:format)' => 'home#tag', :as => :tag
 	match 'logs/tags/:type/:tags(/p:page)(.:format)' => 'home#tags', :as => :tags
 	match 'logs/keyword(/:keyword)(/p:page)(.:format)' => 'home#keyword', :as => :keyword
