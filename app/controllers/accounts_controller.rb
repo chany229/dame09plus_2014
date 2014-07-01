@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
     private
 
     def get_user
-        @user = User.where(:username => params[:id]).first
+        @user = User.where(:username => params[:username]).first
     end
 
     def get_current_user

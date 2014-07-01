@@ -1,8 +1,10 @@
 class Admin::UsersController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :check_admin_permission
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.desc(:created_at)
 
     respond_to do |format|
       format.html # index.html.erb
