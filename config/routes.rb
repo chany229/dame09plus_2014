@@ -1,4 +1,7 @@
 Dame09plus::Application.routes.draw do
+  resources :friends
+
+
 	resources :entries do
 		resources :comments
 	end
