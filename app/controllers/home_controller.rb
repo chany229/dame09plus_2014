@@ -2,7 +2,8 @@
 require 'rqrcode'
 class HomeController < ApplicationController
 	#before_filter :authenticate_user!, :except => [:index]
-	before_filter :check_from_angular, :except => [:index, :frame, :calendar]
+	#before_filter :check_mobile, :only => [:index, :mobile, :entrance, :frame]
+	#before_filter :check_from_angular, :except => [:index, :frame, :calendar]
 	has_mobile_fu
 	layout :get_layout
 
@@ -13,19 +14,37 @@ class HomeController < ApplicationController
 	end
 
 	def mobile
+		respond_to do |format|
+			format.any(:html, :tablet) {
+				redirect_to entrance_path("flowers")
+			}
+			format.mobile {
+				render :layout => "flowers.mobile.erb"
+			}
+		end
+	end
+
+	def entrance
+		respond_to do |format|
+			format.any(:html, :tablet) {
+				session[:skin] = params[:skin]
+				redirect_to frame_path
+			}
+			format.mobile {
+				redirect_to mobile_path
+			}
+		end
 	end
 
 	def frame
-=begin
-		if params[:type]
-			session[:type] = cookies[:type] = params[:type]
-		elsif cookies[:type]
-			session[:type] = cookies[:type]
-		else
-			session[:type] = cookies[:type] = "angular"
+		respond_to do |format|
+			format.any(:html, :tablet) {
+				render "frame.html.erb"
+			}
+			format.mobile {
+				redirect_to mobile_path
+			}
 		end
-=end
-		#render :layout => "yamato_raven"
 	end
 
 	def top
@@ -39,32 +58,29 @@ class HomeController < ApplicationController
 
 	def logs
 		respond_to do |format|
-			format.html {
-				@entries = Entry.desc(:created_at).page(params[:page] || 1).per(5)
+			format.any(:html, :tablet) {
+				@entries = Entry.desc(:created_at).page(params[:page] || 1).per(per_page)
 				@filter  = "全部"
 				@tags = Entry.all_tags
 				@calendar_date = Time.now
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
 
 				@page_hash = "#/logs"
+
+				render "logs.html.erb"
 			}
 			format.js {
 				@hash = "#/logs/p#{params[:page] || 1}"
 				render 'search.js.erb'
 			}
-			format.mobile {
-				@entries = Entry.desc(:created_at).page(params[:page] || 1).per(5)
-				@filter  = "全部"
-				@tags = Entry.all_tags
-			}
 		end
 	end
 
 	def tag
-		tag      = params[:tag_name]
+		tag = params[:tag_name]
 		respond_to do |format|
-			format.html {
-				@entries = Entry.tagged_with(tag).desc(:created_at).page(params[:page] || 1).per(5)
+			format.any(:html, :tablet) {
+				@entries = Entry.tagged_with(tag).desc(:created_at).page(params[:page] || 1).per(per_page)
 				@filter  = "标签[#{tag}]"
 				@calendar_date = Time.now
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
@@ -77,11 +93,6 @@ class HomeController < ApplicationController
 				@hash = "#/logs/tag/#{tag}/p#{params[:page] || 1}"
 				render 'search.js.erb'
 			}
-			format.mobile {
-				@entries = Entry.tagged_with(tag).desc(:created_at).page(params[:page] || 1).per(5)
-				@filter  = "标签[#{tag}]"
-				@tags = Entry.all_tags
-			}
 		end
 	end
 
@@ -89,12 +100,12 @@ class HomeController < ApplicationController
 		tags = params[:tags].split('|')
 		type = params[:type]
 		respond_to do |format|
-			format.html {
+			format.any(:html, :tablet) {
 				if type.downcase == 'and'
-					@entries = Entry.tagged_with_all(tags).desc(:created_at).page(params[:page] || 1).per(5)
+					@entries = Entry.tagged_with_all(tags).desc(:created_at).page(params[:page] || 1).per(per_page)
 					@filter  = "标签与搜索[#{params[:tags]}]"
 				else#if type.downcase == 'or'
-					@entries = Entry.tagged_with(tags).desc(:created_at).page(params[:page] || 1).per(5)
+					@entries = Entry.tagged_with(tags).desc(:created_at).page(params[:page] || 1).per(per_page)
 					@filter  = "标签或搜索[#{params[:tags]}]"
 				end
 				@calendar_date = Time.now
@@ -113,10 +124,10 @@ class HomeController < ApplicationController
 	end		
 
 	def keyword
-		keyword  = params[:keyword]
+		keyword = params[:keyword]
 		respond_to do |format|
-			format.html {
-				@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(params[:page] || 1).per(5)
+			format.any(:html, :tablet) {
+				@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(params[:page] || 1).per(per_page)
 				@filter  = "关键词[#{keyword}]"
 				@calendar_date = Time.now
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
@@ -129,11 +140,6 @@ class HomeController < ApplicationController
 			format.js {
 				@hash = "#/logs/keyword/#{keyword}/p#{params[:page] || 1}"
 				render 'search.js.erb'
-			}
-			format.mobile {
-				@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(params[:page] || 1).per(5)
-				@filter  = "关键词[#{keyword}]"
-				@tags = Entry.all_tags
 			}
 		end
 	end
@@ -167,8 +173,8 @@ class HomeController < ApplicationController
 		end
 		@hash = "#{@page_hash}/p#{params[:page] || 1}"
 		respond_to do |format|
-			format.html {
-				@entries = Entry.where(:created_at => start_time..end_time).desc(:created_at).page(params[:page] || 1).per(5)
+			format.any(:html, :tablet) {
+				@entries = Entry.where(:created_at => start_time..end_time).desc(:created_at).page(params[:page] || 1).per(per_page)
 				@calendar_date = time
 				Rails.logger.info @calendar_date.month.to_s + " <= month !!!!!!!!!!!!!!"
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
@@ -224,8 +230,10 @@ class HomeController < ApplicationController
 	def get_layout
 		if params[:from_angular]
 			return false
+		elsif session[:skin]
+			"#{session[:skin]}.html.erb"
 		else
-			return params[:skin] || session[:skin] || "flowers" || "yamato_raven"
+			return "flowers.html.erb" || "yamato_raven.html.erb"
 		end
 	end
 
@@ -233,5 +241,9 @@ class HomeController < ApplicationController
 		unless params[:from_angular]
 			session[:type] = "jquery"
 		end
+	end
+
+	def per_page
+		7
 	end
 end

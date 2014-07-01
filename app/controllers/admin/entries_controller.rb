@@ -6,7 +6,7 @@ class Admin::EntriesController < ApplicationController
   # GET /admin/entries
   # GET /admin/entries.json
   def index
-    @entries = Entry.desc(:created_at).page(params[:page] || 1).per(20)
+    @entries = Entry.desc(:created_at).page(params[:page] || 1).per(10)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -14,8 +14,8 @@ Dame09plus::Application.routes.draw do
 		resources :users
 		resources :comments
 	end
-	get "admin/comments/for_user/:username" => 'admin/comments#index', :as => 'admin_user_comments'
-	get "admin/comments/for_entry/:entry_id" => 'admin/comments#index', :as => 'admin_entry_comments'
+	get "admin/comments/for_user/:username" => 'admin/comments#index', :as => :admin_user_comments
+	get "admin/comments/for_entry/:entry_id" => 'admin/comments#index', :as => :admin_entry_comments
 	match 'logs/tag/:tag_name(/p:page)(.:format)' => 'home#tag', :as => :tag
 	match 'logs/tags/:type/:tags(/p:page)(.:format)' => 'home#tags', :as => :tags
 	match 'logs/keyword(/:keyword)(/p:page)(.:format)' => 'home#keyword', :as => :keyword
@@ -28,6 +28,7 @@ Dame09plus::Application.routes.draw do
 	match 'profile(.:format)' => 'home#profile', :as => :profile
 	match 'links(.:format)' => 'home#links', :as => :links
 	match 'frame(/:type)' => 'home#frame', :as => :frame
+	match 'entrance/:skin' => 'home#entrance', :as => :entrance
 	match 'mobile' => 'home#mobile', :as => :mobile
 	authenticated :user do
 		root :to => 'home#index'

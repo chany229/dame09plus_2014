@@ -28,10 +28,10 @@
 		<div class="clear"></div>
 	</div>
 	<div id="comments_of_e<%= entry.id %>" class="comments">
-		<%= render "home/comment_form", :entry => entry %>
+		<%= render "home/comment_form.html.erb", :entry => entry %>
 		<div id="commentslist_of_e<%= entry.id %>">
 			<% entry.comments.desc(:created_at).each do |comment| %>
-			<%= render "home/comment", :comment => comment %>
+			<%= render "home/comment.html.erb", :comment => comment %>
 			<% end %>
 		</div>
 	</div>

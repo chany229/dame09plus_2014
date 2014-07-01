@@ -121,8 +121,8 @@
 				<% if is_mobile_device? %>
 				<%= link_to "手机版入口", mobile_path %>
 				<% else %>
-				<%= link_to "新皮肤入口", frame_path(:skin => "flowers") %>
-				<%= link_to "老皮肤入口", frame_path(:skin => "yamato_raven") %>
+				<%= link_to "新皮肤入口", entrance_path("flowers") %>
+				<%= link_to "老皮肤入口", entrance_path("yamato_raven") %>
 				<% end %>
 				<div>暂时不支持IE浏览器=L=</div>
 			</div>
