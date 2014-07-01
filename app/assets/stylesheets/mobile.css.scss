@@ -1,0 +1,76 @@
+$yellow: #e7c547;
+$pink: #d54e53;
+$purple: #c397d8;
+$grey: #3f312b;
+$green: #6e7955;
+$lemon: #b9ca4a;
+$red: #f33;
+$orange: #e78c45;
+html {
+    margin: 0 auto;
+    height: 100%;
+    padding: 0;
+}
+body {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    height: 100%;
+    font-size: 12px;
+    font-family: 'microsoft yahei';
+    color: $pink;
+}
+span {
+    display: inline;
+}
+a {
+    color: $yellow;
+    &:visited{
+        color: $lemon;
+    }
+    &:hover{
+        color: $lemon;
+    }
+    &:active{
+        color: $lemon;
+    }
+}
+hr {
+    height: 1px;
+    border: none;
+    border-top: 1px dashed $purple;
+    padding: 0;
+    margin: 5px;
+}
+header {
+    width: 100%;
+    background-color: $pink;
+    font-size: 24px;
+    text-align: center;
+}
+.block {
+  border: 1px dashed $pink;
+  border-radius: $block_radius;
+  -moz-border-radius: $block_radius;
+  -webkit-border-radius: $block_radius;
+  -ms-border-radius: $block_radius;
+  -o-border-radius: $block_radius;
+
+  color: $pink;
+  a {
+    color: $yellow;
+    &:visited{
+      color: $lemon;
+    }
+    &:hover{
+      color: $lemon;
+    }
+    &:active{
+      color: $lemon;
+    }
+  }
+
+  &:hover {
+    border-color: $purple;
+  }
+}

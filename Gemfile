@@ -73,3 +73,7 @@ gem 'remotipart', '~> 1.2' #remote方式上传文件
 gem "mongo_session_store-rails3"
 
 gem "rqrcode"
+
+gem 'mobile-fu'
+
+gem 'faye'

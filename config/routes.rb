@@ -2,16 +2,16 @@ Dame09plus::Application.routes.draw do
 	resources :entries do
 		resources :comments
 	end
-	post 'user/upload_avatar' => 'users#upload_avatar', :as => 'upload_avatar'
-	put 'user/avatar/crop' => 'users#crop_avatar', :as => 'crop_avatar'
-	get 'user/avatar' => 'users#avatar', :as => 'user_avatar'
-	get 'user/:username' => 'users#show', :as => 'user'
+	post 'accounts/upload_avatar' => 'accounts#upload_avatar', :as => 'upload_avatar'
+	put 'accounts/avatar/crop' => 'accounts#crop_avatar', :as => 'crop_avatar'
+	get 'accounts/avatar' => 'accounts#avatar', :as => 'user_avatar'
+	get 'accounts/:username' => 'accounts#show', :as => 'user'
 
 	post 'create_comment(.:format)' => 'home#create_comment', :as => :create_comment
 	match 'remove_comment/:entry_id/:comment_id(.:format)' => 'home#remove_comment', :as => :remove_comment
 	namespace :admin do
 		resources :entries
-		resources :accounts
+		resources :users
 	end
 	match 'logs/tag/:tag_name(/p:page)(.:format)' => 'home#tag', :as => :tag
 	match 'logs/tags/:type/:tags(/p:page)(.:format)' => 'home#tags', :as => :tags
@@ -25,10 +25,10 @@ Dame09plus::Application.routes.draw do
 	match 'profile(.:format)' => 'home#profile', :as => :profile
 	match 'links(.:format)' => 'home#links', :as => :links
 	match 'frame(/:type)' => 'home#frame', :as => :frame
+	match 'mobile' => 'home#mobile', :as => :mobile
 	authenticated :user do
 		root :to => 'home#index'
 	end
 	root :to => "home#index"
 	devise_for :users
-	resources :users
 end

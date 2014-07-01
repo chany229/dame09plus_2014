@@ -3,11 +3,16 @@ require 'rqrcode'
 class HomeController < ApplicationController
 	#before_filter :authenticate_user!, :except => [:index]
 	before_filter :check_from_angular, :except => [:index, :frame, :calendar]
+	has_mobile_fu
 	layout :get_layout
+
 
 	def index
 		@qr = RQRCode::QRCode.new('http://dame09.com')
-		render :layout => false
+		render "index.html.erb", :layout => false
+	end
+
+	def mobile
 	end
 
 	def frame
@@ -47,6 +52,11 @@ class HomeController < ApplicationController
 				@hash = "#/logs/p#{params[:page] || 1}"
 				render 'search.js.erb'
 			}
+			format.mobile {
+				@entries = Entry.desc(:created_at).page(params[:page] || 1).per(5)
+				@filter  = "全部"
+				@tags = Entry.all_tags
+			}
 		end
 	end
 
@@ -66,6 +76,11 @@ class HomeController < ApplicationController
 			format.js {
 				@hash = "#/logs/tag/#{tag}/p#{params[:page] || 1}"
 				render 'search.js.erb'
+			}
+			format.mobile {
+				@entries = Entry.tagged_with(tag).desc(:created_at).page(params[:page] || 1).per(5)
+				@filter  = "标签[#{tag}]"
+				@tags = Entry.all_tags
 			}
 		end
 	end
@@ -114,6 +129,11 @@ class HomeController < ApplicationController
 			format.js {
 				@hash = "#/logs/keyword/#{keyword}/p#{params[:page] || 1}"
 				render 'search.js.erb'
+			}
+			format.mobile {
+				@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(params[:page] || 1).per(5)
+				@filter  = "关键词[#{keyword}]"
+				@tags = Entry.all_tags
 			}
 		end
 	end
