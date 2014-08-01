@@ -2,4 +2,4 @@ log/*.log
 log/*.log*
 tmp/
 public/assets/
-*.example
+config/application.yml
