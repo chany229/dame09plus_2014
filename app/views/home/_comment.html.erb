@@ -1,7 +1,7 @@
 <div class="comment" id="c<%= comment.id %>_of_e<%= comment.commentable.id %>">
 	<div class="left">
 		<% if comment.user %>
-		<%= link_to image_tag(comment.user.avatar.url(:mini)), user_path(comment.user.username) %>
+		<%= link_to image_tag(comment.user.avatar_url(:mini)), account_path(comment.user.username) %>
 		<% else %>
 		<%= image_tag "mini_default_avatar.png" %>
 		<% end %>
@@ -9,7 +9,7 @@
 	<div class="left comment_content">
 		<div class="comment_username">
 			<% if comment.user %>
-			<%= link_to comment.user.username, user_path(comment.user.username) %>：
+			<%= link_to comment.user.username, account_path(comment.user.username) %>：
 			<% else %>
 			<%= comment.username %>：
 			<% end %>

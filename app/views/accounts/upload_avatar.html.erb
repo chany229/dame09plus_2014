@@ -1,7 +1,81 @@
 <h2>上传头像</h2>
-<%= form_tag upload_avatar_path, :multipart => true do %>
-<%= file_field_tag :avatar %>
-<%= submit_tag "上传" %>
+<%= form_tag "#{upload_avatar_path}?X-Progress-ID=#{@x_progress_id}", :id => "upload_avatar_form", :multipart => true, :remote => true do %>
+<div class="upload_file_div">
+    <span class="upload_file_label"><span style="color:#a22041">请选择文件</span></span>
+    <%= file_field_tag :avatar, :class => "upload_file_input", :onchange => "$('.upload_file_label').html($(this).val())" %>
+    <a onclick="begin_upload()" class="upload_file_btn">上传</a>
+</div>
+<div id="error_message"></div>
 <% end %>
-<h6>当前头像</h6>
-<%= image_tag @user.avatar.url(:crop) %>
+<div id="progress_wrapper">
+    <div>上传进度(<span id="upload_now_span">0</span>/<span id="upload_all_span">0</span>)</div>
+    <div class="progress" id="upload_progress">
+        <div class="progress_bar" id="upload_bar"></div>
+    </div>
+    <a class="btn" onclick="window.location.reload();">取消上传</a>
+</div>
+<div style="margin: 30px 0">
+    <p><b>当前头像</b></p>
+    <%= image_tag @user.avatar_url(:mini) %>
+</div>
+<div class="bottom">
+    <%= link_to "返回", account_path(@user.username) %>
+</div>
+<script type="text/javascript">
+var upload_timer;
+var upload_now_width = 0.0;
+function begin_upload() {
+    if ( $("#upload_avatar_form").valid() ) {
+        $('#upload_avatar_form').submit();
+        $('#progress_wrapper').show();
+        upload_timer = setInterval(function(){update_upload_bar()},100);
+    }
+}
+function update_upload_bar() {
+    $.getJSON("/api/upload_avatar_progress.json?X-Progress-ID=<%= @x_progress_id %>", function(value){
+        if (value.state == 'done' || value.state == 'uploading') {
+            upload_now_width = 100.0 * value.received / value.size;
+            $("#upload_bar").css("width", upload_now_width + "%");
+            $("#upload_now_span").html(value.received);
+            $("#upload_all_span").html(value.size);
+        }
+        if (value.state == 'done') {
+            clearInterval(upload_timer);
+            setTimeout('complate_upload()', 1000); 
+        }
+    });
+}
+function complate_upload() {
+    $("#upload_bar").css("width", "100%");
+    window.location.href="<%= crop_avatar_path %>";
+}
+$(function(){
+    $('#upload_avatar_form').validate({
+        rules: {
+            avatar: {
+                required: true,
+                extension: "png|jpe?g|gif",
+                accept: "image/*",
+                maxFileSize: {
+                    "unit": "MB",
+                    "size": 1
+                }
+            }
+        },
+        messages: {
+            avatar: {
+                required: '请选择图片文件',
+                extension: '只能上传后缀名为jpg、jpeg、png、gif的文件',
+                accept: '上传文件必须为图片类型',
+                maxFileSize: '上传文件不得大于1M'
+            }
+        },
+        errorPlacement: function(error, element) {
+            console.log(error);
+            console.log(element);
+            $('#error_message').html(error);
+            //error.appendTo( element.parent() );
+        }
+    });
+});
+</script>

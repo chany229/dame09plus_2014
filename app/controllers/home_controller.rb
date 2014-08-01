@@ -4,6 +4,7 @@ class HomeController < ApplicationController
 	#before_filter :authenticate_user!, :except => [:index]
 	#before_filter :check_mobile, :only => [:index, :mobile, :entrance, :frame]
 	#before_filter :check_from_angular, :except => [:index, :frame, :calendar]
+	before_filter :get_page, :only => [:logs, :tag, :tags, :keyword, :date]
 	has_mobile_fu
 	layout :get_layout
 
@@ -59,7 +60,7 @@ class HomeController < ApplicationController
 	def logs
 		respond_to do |format|
 			format.any(:html, :tablet) {
-				@entries = Entry.desc(:created_at).page(params[:page] || 1).per(per_page)
+				@entries = Entry.desc(:created_at).page(@page).per(per_page)
 				@filter  = "全部"
 				@tags = Entry.all_tags
 				@calendar_date = Time.now
@@ -70,9 +71,16 @@ class HomeController < ApplicationController
 				render "logs.html.erb"
 			}
 			format.js {
-				@hash = "#/logs/p#{params[:page] || 1}"
+				@hash = "#/logs/p#{@page}"
 				render 'search.js.erb'
 			}
+=begin
+			format.json {
+				@entries = Entry.desc(:created_at).page(@page).per(per_page)
+				@filter  = "全部"
+				render :json => {:entries => @entries, :filter => @filter, :total_pages => @entries.total_pages, :current_page => @page}
+			}
+=end
 		end
 	end
 
@@ -80,7 +88,7 @@ class HomeController < ApplicationController
 		tag = params[:tag_name]
 		respond_to do |format|
 			format.any(:html, :tablet) {
-				@entries = Entry.tagged_with(tag).desc(:created_at).page(params[:page] || 1).per(per_page)
+				@entries = Entry.tagged_with(tag).desc(:created_at).page(@page).per(per_page)
 				@filter  = "标签[#{tag}]"
 				@calendar_date = Time.now
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
@@ -90,7 +98,7 @@ class HomeController < ApplicationController
 				render :action => :logs
 			}
 			format.js {
-				@hash = "#/logs/tag/#{tag}/p#{params[:page] || 1}"
+				@hash = "#/logs/tag/#{tag}/p#{@page}"
 				render 'search.js.erb'
 			}
 		end
@@ -102,10 +110,10 @@ class HomeController < ApplicationController
 		respond_to do |format|
 			format.any(:html, :tablet) {
 				if type.downcase == 'and'
-					@entries = Entry.tagged_with_all(tags).desc(:created_at).page(params[:page] || 1).per(per_page)
+					@entries = Entry.tagged_with_all(tags).desc(:created_at).page(@page).per(per_page)
 					@filter  = "标签与搜索[#{params[:tags]}]"
 				else#if type.downcase == 'or'
-					@entries = Entry.tagged_with(tags).desc(:created_at).page(params[:page] || 1).per(per_page)
+					@entries = Entry.tagged_with(tags).desc(:created_at).page(@page).per(per_page)
 					@filter  = "标签或搜索[#{params[:tags]}]"
 				end
 				@calendar_date = Time.now
@@ -117,17 +125,17 @@ class HomeController < ApplicationController
 				render :action => :logs
 			}
 			format.js {
-				@hash = "#/logs/tags/#{type}-#{params[:tags]}/p#{params[:page] || 1}"
+				@hash = "#/logs/tags/#{type}-#{params[:tags]}/p#{@page}"
 				render 'search.js.erb'
 			}
 		end
-	end		
+	end
 
 	def keyword
 		keyword = params[:keyword]
 		respond_to do |format|
 			format.any(:html, :tablet) {
-				@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(params[:page] || 1).per(per_page)
+				@entries = Entry.or({:short => /#{keyword}/}, {:long => /#{keyword}/}).desc(:created_at).page(@page).per(per_page)
 				@filter  = "关键词[#{keyword}]"
 				@calendar_date = Time.now
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
@@ -138,7 +146,7 @@ class HomeController < ApplicationController
 				render :action => :logs
 			}
 			format.js {
-				@hash = "#/logs/keyword/#{keyword}/p#{params[:page] || 1}"
+				@hash = "#/logs/keyword/#{keyword}/p#{@page}"
 				render 'search.js.erb'
 			}
 		end
@@ -171,10 +179,10 @@ class HomeController < ApplicationController
 			redirect_to '#/logs'
 			return
 		end
-		@hash = "#{@page_hash}/p#{params[:page] || 1}"
+		@hash = "#{@page_hash}/p#{@page}"
 		respond_to do |format|
 			format.any(:html, :tablet) {
-				@entries = Entry.where(:created_at => start_time..end_time).desc(:created_at).page(params[:page] || 1).per(per_page)
+				@entries = Entry.where(:created_at => start_time..end_time).desc(:created_at).page(@page).per(per_page)
 				@calendar_date = time
 				Rails.logger.info @calendar_date.month.to_s + " <= month !!!!!!!!!!!!!!"
 				@calendar_events = Entry.where(:created_at => @calendar_date.beginning_of_month..@calendar_date.end_of_month).map{ |e| e.created_at.day }.uniq
@@ -190,7 +198,7 @@ class HomeController < ApplicationController
 		@date = Time.at(params[:date].to_i)
 		@events = Entry.where(:created_at => @date.beginning_of_month..@date.end_of_month).map{ |e| e.created_at.day }.uniq
 		respond_to do |format|
-			format.js
+			format.js {render :layout => false}
 		end
 	end
 
@@ -205,7 +213,7 @@ class HomeController < ApplicationController
 		@comment.save
 		session[:comment_color] = cookies[:comment_color] = params[:comment][:comment_color]
 		respond_to do |format|
-			format.js
+			format.js {render :layout => false}
 		end
 	end
 
@@ -220,7 +228,7 @@ class HomeController < ApplicationController
 		end
 		Rails.logger.info result
 		respond_to do |format|
-			format.js
+			format.js {render :layout => false}
 		end
 	end
 
@@ -241,6 +249,10 @@ class HomeController < ApplicationController
 		unless params[:from_angular]
 			session[:type] = "jquery"
 		end
+	end
+
+	def get_page
+		@page = (params[:page] || 1).to_i
 	end
 
 	def per_page

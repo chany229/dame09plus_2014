@@ -17,4 +17,16 @@ class Comment
             self.username
         end
     end
+
+    def to_hash
+        result = {
+            :id => self.id,
+            :commentable_id => self.commentable_id,
+            :username => self.nickname,
+            :body => self.body,
+        }
+        if self.user
+            result[:user_id] = self.user_id
+        end
+    end
 end

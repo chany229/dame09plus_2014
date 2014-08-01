@@ -2,9 +2,9 @@
 <%= stylesheet_link_tag    "jquery.Jcrop" %>
 <%= javascript_include_tag "jquery.Jcrop" %>
 <% end %>
-<img src="<%= @user.avatar.url(:large) %>" id="jcrop_target">
+<img src="<%= @user.avatar_url(:large) %>" id="jcrop_target">
 <div style="width:100px;height:100px;overflow:hidden;">
-    <img src="<%= @user.avatar.url(:large) %>" id="crop_preview" width="100px" height="100px">
+    <img src="<%= @user.avatar_url(:large) %>" id="crop_preview" width="100px" height="100px">
 </div>
 <a onclick="$('#crop_avatar_form').submit()">确认</a>
 <%= form_for @user, :url => crop_avatar_path, :html => {:style => "display:none", :id => "crop_avatar_form"} do |f| %>
@@ -13,6 +13,7 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
+/*
 var img = $('#jcrop_target');
 var theImage = new Image();
 theImage.src = img.attr("src");
@@ -22,6 +23,7 @@ var img_height = img.height();
 var img_width = img.width();
 console.log("ori:" + ori_width);
 console.log("img:" + img_width);
+*/
 $(function(){
     $('#jcrop_target').Jcrop({
         onChange: showPreview,

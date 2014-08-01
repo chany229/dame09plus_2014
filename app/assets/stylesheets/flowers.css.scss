@@ -50,7 +50,7 @@ span {display: inline-block;}
 hr {
   height: 1px;
   border: none;
-  border-top: 1px dashed $purple;
+  border-top: 1px dashed $pink;
   padding: 0;
   margin: 5px;
 }
@@ -101,7 +101,6 @@ input:-moz-placeholder { color: black; }
 
 /*header&footer*/
 header, footer {
-  color: $pink;
   border-color: $pink;
   clear: both;
   width: 100%;
@@ -115,9 +114,9 @@ header {
   @include pie;
 }
 header a, footer a {
-  color: $pink;
+  color: $yellow;
   &:visited{
-    color: $pink;
+    color: $yellow;
   }
   &:hover{
     color: $purple;
@@ -240,6 +239,7 @@ p.notice, p.alert {
   width: 690px;
   padding: 20px;
   margin-bottom: 20px;
+  color: $yellow;
 }
 #filters {
   float: left;
@@ -426,6 +426,19 @@ p.notice, p.alert {
   -ms-border-radius: $block_radius;
   -o-border-radius: $block_radius;
   @include pie;
+  color: $yellow;
+  a {
+    color: $pink;
+    &:hover {
+      color: $red;
+    }
+    &:active {
+      color: $red;
+    }
+    &:visited {
+      color: $pink;
+    }
+  }
 }
 .comment_username {
   float: left;

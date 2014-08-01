@@ -3,9 +3,10 @@ Dame09plus::Application.routes.draw do
 		resources :comments
 	end
 	post 'accounts/upload_avatar' => 'accounts#upload_avatar', :as => 'upload_avatar'
-	put 'accounts/avatar/crop' => 'accounts#crop_avatar', :as => 'crop_avatar'
-	get 'accounts/avatar' => 'accounts#avatar', :as => 'user_avatar'
-	get 'accounts/:username' => 'accounts#show', :as => 'user'
+	put 'accounts/avatar/crop' => 'accounts#cropped_avatar', :as => 'crop_avatar'
+	get 'accounts/avatar/crop' => 'accounts#crop_avatar', :as => 'crop_avatar'
+	get 'accounts/avatar' => 'accounts#avatar', :as => 'accounts_avatar'
+	get 'accounts/:username' => 'accounts#show', :as => 'account'
 
 	post 'create_comment(.:format)' => 'home#create_comment', :as => :create_comment
 	match 'remove_comment/:entry_id/:comment_id(.:format)' => 'home#remove_comment', :as => :remove_comment

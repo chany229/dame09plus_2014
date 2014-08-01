@@ -42,10 +42,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :large do
     resize_to_limit(250, 250)
   end
-  version :crop do
-    process :crop
-    resize_to_fill(200, 200)
-  end
   version :mini do
     process :crop
     resize_to_fill(32, 32)
@@ -60,17 +56,13 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{model.username}.#{file.extension}" if original_filename
+    "#{model.id}.#{file.extension}" if original_filename
   end
 
   def crop
     if model.crop_x
       resize_to_limit(250, 250)
       manipulate! do |img|
-        x = model.crop_x.to_i
-        y = model.crop_y.to_i
-        w = model.crop_w.to_i
-        h = model.crop_h.to_i
         img.crop "#{model.crop_w}x#{model.crop_h}+#{model.crop_x}+#{model.crop_y}"
         img
       end

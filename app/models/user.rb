@@ -51,7 +51,8 @@ class User
   field :username, :type => String
   validates :username, :uniqueness => { :case_sensitive => false }, :presence => true
   attr_accessor :login, :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
+  attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at,
+                  :crop_x, :crop_y, :crop_w, :crop_h
 
   #has_many :comments, :validate => false
 
@@ -113,6 +114,10 @@ class User
       o
     end
     result
+  end
+
+  def avatar_url(version)
+    "#{self.avatar.url(version)}?#{Time.now.to_i}"
   end
 end
 

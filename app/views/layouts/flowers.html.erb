@@ -39,8 +39,8 @@
       <%= link_to "马太目欢乐颂+", root_path %>
       <div id="login_link">
         <% if current_user %>
-        <%= link_to current_user.username, edit_registration_path(:user) %>
-        <%= link_to('管理界面', admin_path) if current_user.has_role?("admin") %>
+        <%= link_to current_user.username, account_path(current_user.username) %>
+        <%= link_to('管理界面', admin_entries_path) if current_user.has_role?(:admin) %>
         <%= link_to '注销', destroy_session_path(:user), :method => :delete %>
         <% else %>
         <%= link_to '登录', new_session_path(:user) %>

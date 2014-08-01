@@ -28,4 +28,19 @@ class Entry
   end
 
   has_many :comments, :as => :commentable
+
+
+
+  def to_hash
+    result = {
+      :id => self.id,
+      :short => self.short,
+      :tags => self.tags,
+      :created_at => self.created_at,
+      :comments => self.comments
+    }
+    if self.has_long?
+      result[:long] = self.long
+    end
+  end
 end

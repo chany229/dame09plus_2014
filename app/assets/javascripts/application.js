@@ -18,6 +18,8 @@
 //= require my_angular
 //= require highlight
 //= require jquery.validate
+//= require jquery.validate.file
+//= require additional-methods
 // require_tree .
 $(function(){
 	$('body').keypress(function(e){

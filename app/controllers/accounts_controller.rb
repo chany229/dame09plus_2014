@@ -9,6 +9,7 @@ class AccountsController < ApplicationController
     end
 
     def avatar
+        @x_progress_id = "#{@user.id}_#{(Time.now.to_f*1000).to_i}"
         render "upload_avatar"
     end
 
@@ -21,6 +22,9 @@ class AccountsController < ApplicationController
     end
 
     def crop_avatar
+    end
+
+    def cropped_avatar
         @user.update_attributes(params[:user])
         redirect_to :action => :avatar
     end
